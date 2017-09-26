@@ -1,3 +1,34 @@
+//-----------------Free Code Camp 'Make A Person'------------------------
+
+// var Person = function(firstAndLast) {
+//
+//   var fullName = firstAndLast;
+//
+//   this.getFirstName = function() {
+//   	return fullName.split(" ")[0];
+//   };
+//
+//   this.getLastName = function() {
+// 	return fullName.split(" ")[1];
+//   };
+//
+//   this.getFullName = function() {
+//   	return fullName;
+//   };
+//
+//   this.setFirstName = function(first) {
+// 	fullName = first + " " + fullName.split(" ")[1];
+//   };
+//
+//   this.setLastName = function(last) {
+// 	fullName = fullName.split(" ")[0] + " " + last;
+//   };
+//
+//   this.setFullName = function(name) {
+//   	fullName = name;
+//   };
+// };
+
 //------------------Code Wars Detect Pangram----------------------------
 
 // A pangram is a sentence that contains every single letter of the alphabet at least once. For example, the sentence "The quick brown fox jumps over the lazy dog" is a pangram, because it uses the letters A-Z at least once (case is irrelevant).
