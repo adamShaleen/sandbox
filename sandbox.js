@@ -1,3 +1,16 @@
+//-----------------Free Code Camp 'Map the Debris'----------------------
+
+// function orbitalPeriod(arr) {
+//
+//   var GM = 398600.4418;
+//   var earthRadius = 6367.4447;
+//   var orbitalPeriod = 2 * Math.PI * Math.sqrt( (earthRadius + arr[0].avgAlt) * 3) / GM;  // Ben Brunk helped me with part of this equation
+//
+//   return orbitalPeriod;
+// }
+//
+// orbitalPeriod([{name : "sputnik", avgAlt : 35873.5553}]);
+
 //-----------------Free Code Camp 'Make A Person'------------------------
 
 // var Person = function(firstAndLast) {
