@@ -4,9 +4,13 @@
 //
 //   var GM = 398600.4418;
 //   var earthRadius = 6367.4447;
-//   var orbitalPeriod = 2 * Math.PI * Math.sqrt( (earthRadius + arr[0].avgAlt) * 3) / GM;  // Ben Brunk helped me with part of this equation
+//   var output = [];
 //
-//   return orbitalPeriod;
+//   for (var index in arr) {
+//   	output.push({name: arr[index].name, orbitalPeriod: Math.round(2 * Math.PI * Math.sqrt( (earthRadius + arr[index].avgAlt) ** 3 / GM))})
+//   }
+//
+//   return output;
 // }
 //
 // orbitalPeriod([{name : "sputnik", avgAlt : 35873.5553}]);
