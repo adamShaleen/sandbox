@@ -1,3 +1,37 @@
+//----------------Free Code Camp 'Pairwise'----------------------------
+
+// function pairwise(arr, arg) {
+//
+//   var indicies = [];
+//
+//   function indexObject(index) {
+//     this.index = index;
+//     this.hasBeenUsed = false;
+//   }
+//
+//   var output = [];
+//
+//   for (var i = 0; i < arr.length; i++) {
+// 		indicies.push(new indexObject(i));
+//     for (var y = 0; y < arr.length; y++) {
+//       indicies.push(new indexObject(y));
+// 			if (arr[i] + arr[y] === arg && !indicies[i].hasBeenUsed && !indicies[y].hasBeenUsed && arr.indexOf(i) !== arr.indexOf(y)) {
+//       	output.push(i + y);
+//         indicies[i].hasBeenUsed = true;
+//         indicies[y].hasBeenUsed = true;
+//       }
+//     }
+//   }
+//
+//   if (output.length === 0) {
+//     return 0;
+//   }
+//
+//   return output.reduce(function(a, b) {return a + b;});
+// }
+//
+// pairwise([1,4,2,3,0,5], 7);
+
 //-----------------Free Code Camp 'Map the Debris'----------------------
 
 // function orbitalPeriod(arr) {
