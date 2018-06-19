@@ -1,3 +1,23 @@
+//----------------Code Wars 'Round by 0.5 steps'----------------------
+
+// function solution(n){
+//   let numArr = n.toString().split('.');
+//   let wholeNum = parseInt(numArr[0]);
+//   let numToEvaluate = '0.' + numArr[1];
+//
+//   if (numToEvaluate < .3) {
+//     return Math.round(n);
+//   }
+//
+//   else if (numToEvaluate > .25 && numToEvaluate < .75) {
+//     return wholeNum + .5;
+//   }
+//
+//   else if (numToEvaluate >= .75) {
+//     return wholeNum + 1;
+//   }
+// }
+
 //----------------Free Code Camp 'Pairwise'----------------------------
 
 // function pairwise(arr, arg) {
