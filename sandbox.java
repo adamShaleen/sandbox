@@ -1,4 +1,30 @@
 //=============================================================================
+// Hacker Rank syntax checker
+
+// import java.util.Scanner;
+// import java.util.regex.*;
+//
+// public class Solution {
+// 	public static void main(String[] args) {
+//
+//         Scanner scanner = new Scanner(System.in);
+// 		int numOfTestCases = Integer.parseInt(scanner.nextLine());
+//
+//         while (numOfTestCases > 0) {
+// 			String pattern = scanner.nextLine();
+//
+//             try {
+//                 Pattern.compile(pattern);
+//                 System.out.println("Valid");
+//             } catch (PatternSyntaxException e) {
+//                 System.out.println("Invalid");
+//             }
+//             numOfTestCases--;
+// 		}
+// 	}
+// }
+
+//=============================================================================
 // Hacker Rank String reverse
 
 // import java.io.*;
