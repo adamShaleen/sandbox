@@ -1,4 +1,22 @@
 //=============================================================================
+// Hacker Rank String reverse
+
+// import java.io.*;
+// import java.util.*;
+//
+// public class Solution {
+//
+//     public static void main(String[] args) {
+//
+//         Scanner scanner = new Scanner(System.in);
+//         String str = scanner.next();
+//         StringBuilder strBuilder = new StringBuilder(str);
+//
+//         System.out.println(strBuilder.reverse().toString().equals(str) ? "Yes" : "No");
+//     }
+// }
+
+//=============================================================================
 // Hacker Rank Currency formatter
 
 // import java.io.*;
