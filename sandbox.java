@@ -1,4 +1,53 @@
 //=============================================================================
+// Hacker Rank Java Sort
+
+// class Student {
+//     private int id;
+//     private String fname;
+//     private double cgpa;
+//     public Student(int id, String fname, double cgpa) {
+//         super();
+//         this.id = id;
+//         this.fname = fname;
+//         this.cgpa = cgpa;
+//     }
+//     public int getId() {
+//         return id;
+//     }
+//     public String getFname() {
+//         return fname;
+//     }
+//     public double getCgpa() {
+//         return cgpa;
+//     }
+// }
+//
+// public class Solution {
+//     public static void main(String[] args){
+//         Scanner scanner = new Scanner(System.in);
+//         int testCases = Integer.parseInt(scanner.nextLine());
+//
+//         List<Student> studentList = new ArrayList<Student>();
+//         while (testCases > 0) {
+//             int id = scanner.nextInt();
+//             String fname = scanner.next();
+//             double cgpa = scanner.nextDouble();
+//
+//             Student student = new Student(id, fname, cgpa);
+//             studentList.add(student);
+//
+//             studentList.sort(Comparator.comparing(Student::getCgpa).reversed().thenComparing(Student::getFname));
+//
+//             testCases--;
+//         }
+//
+//           for (Student student: studentList){
+//             System.out.println(student.getFname());
+//         }
+//     }
+// }
+
+//=============================================================================
 // Hacker Rank syntax checker
 
 // import java.util.Scanner;
