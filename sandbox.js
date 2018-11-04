@@ -1,3 +1,17 @@
+//----------------FizzBuzz-------------------------------------------
+
+// Yes, you've done this one a bunch, but here's a different take on it while using a ternary across all conditions
+
+// fizzBuzz = () => {
+	
+//   for (let i = 1; i < 101; i++) {
+//   	console.log((i % 15 === 0 ? "FizzBuzz" :
+//     		i % 3 === 0 ? "Fizz" :
+//     		i % 5 === 0 ? "Buzz" : 
+//     		i));
+// 	}
+// }
+
 //----------------Code Wars 'Round by 0.5 steps'----------------------
 
 // function solution(n){
