@@ -1,3 +1,12 @@
+//---------------Code Wars Coding Meetup #2-------------------------
+// example of creating a copy of an array of objects, adding a new property, and not mutating the original by using the spread operator
+
+// function greetDevelopers(list) {
+//   return list.map(index => 
+//     index = {...index, greeting: `Hi ${index.firstName}, what do you like the most about ${index.language}?`
+//   });
+// }
+
 //----------------FizzBuzz-------------------------------------------
 
 // Yes, you've done this one a bunch, but here's a different take on it while using a ternary across all conditions
