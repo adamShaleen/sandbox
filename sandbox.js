@@ -1,3 +1,18 @@
+//---------------Code Wars Lottery Ticket---------------------------
+
+// const bingo = (ticket, win) => {
+  
+//   let miniWinCount = 0;
+  
+//   ticket.map((currentTicket, index) => {
+//     if (currentTicket[0].includes(String.fromCharCode(currentTicket[1]))) {
+//       miniWinCount++;
+//     }
+//   })
+  
+//   return (miniWinCount >= win ? 'Winner!' : 'Loser!');
+// }
+
 //---------------Code Wars Coding Meetup #2-------------------------
 // example of creating a copy of an array of objects, adding a new property, and not mutating the original by using the spread operator
 
