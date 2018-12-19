@@ -1,3 +1,13 @@
+//---------------Code Wars My Languages-----------------------------
+
+// const myLanguages = (results) => {
+  
+//   return Object.entries(results)
+//     .filter(result => result[1] > 59)
+//     .sort((a, b) => b[1] - a[1])
+//     .map(result => result[0]);
+// }
+
 //---------------Code Wars Lottery Ticket---------------------------
 
 // const bingo = (ticket, win) => {
