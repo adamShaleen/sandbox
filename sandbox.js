@@ -1,3 +1,33 @@
+//---------------Code Wars Row Weights-----------------------------
+
+// Definitely not in love with this version
+
+// function rowWeights(arr) {
+//   const team1 = [0];
+//   const team2 = [0];
+  
+//   arr.map((person, i) => {
+//     if (isEven(i)) {
+//       team1.push(arr[i]);
+//     } else {
+//       team2.push(arr[i]);
+//     }
+//   })
+  
+//   const team1Output = combineWeights(team1);
+//   const team2Output = combineWeights(team2);
+  
+//   return [team1Output, team2Output];
+// }
+
+// function combineWeights(arr) {
+//   return arr.reduce((a, c) => a + c, 0);
+// }
+
+// function isEven(index) {
+//   return index % 2 === 0;
+// }
+
 //---------------Code Wars Word Values------------------------------
 
 // this one was harder than it should have been
