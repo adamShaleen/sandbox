@@ -1,3 +1,36 @@
+//---------------Code Wars Maximum Multiple------------------------
+
+// function maxMultiple(divisor, bound) {
+//   let largestInt = 0
+//   const range = createRange(divisor, bound)
+  
+//   range.map(int => {
+//     if (isLargest(divisor, bound, largestInt, int)) {
+//       largestInt = int
+//     }
+//   })
+//   return largestInt
+// }
+
+// function isLargest(divisor, bound, currentLargest, int) {
+//   return (Number.isInteger(int / divisor) && int <= bound && int > 0 && int > currentLargest)
+// }
+
+// function createRange(start, stop) {
+//   const output = []
+//   for (let i = start; i <= stop; i++) {
+//     output.push(i)
+//   }
+//   return output;
+// }
+
+//---------------Code Wars Maximum Triplet Sum---------------------
+
+// function maxTriSum(numbers) {
+//   const formattedArr = [...new Set(numbers)].sort((a, b) => b - a)
+//   return formattedArr.slice(0, 3).reduce((a, c) => a + c, 0)
+// }
+
 //---------------Code Wars Row Weights-----------------------------
 
 // Definitely not in love with this version
