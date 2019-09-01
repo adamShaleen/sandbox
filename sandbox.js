@@ -1,3 +1,37 @@
+//---------------Code Wars Count the smiley faces------------------
+
+// function countSmileys(arr) {
+//   return arr.reduce((a, c) => {
+//     const charArr = c.split("");
+//     if (hasNose(charArr)) {
+//       if (isValidEyes(charArr[0]) && isValidNose(charArr[1]) && isValidMouth(charArr[2])) {
+//         a++
+//       }
+//     } else {
+//       if (isValidEyes(charArr[0]) && isValidMouth(charArr[1])) {
+//         a++
+//       }
+//     }
+//     return a
+//   }, 0)
+// }
+
+// function hasNose(arr) {
+//   return arr.length === 3
+// }
+
+// function isValidEyes(char) {
+//   return char === ":" || char === ";"
+// }
+
+// function isValidNose(char) {
+//   return char === "-" || char === "~"
+// }
+
+// function isValidMouth(char) {
+//   return char === ")" || char === "D"
+// }
+
 //---------------Code Wars Maximum Multiple------------------------
 
 // function maxMultiple(divisor, bound) {
