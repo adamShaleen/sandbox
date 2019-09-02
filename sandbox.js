@@ -1,3 +1,44 @@
+//---------------Code Wars Sort out the Men from the Boys----------
+
+// function menFromBoys(arr){
+//   const even = []
+//   const odd = []
+  
+//   arr.map(i => isEven(i) ? even.push(i) : odd.push(i))
+  
+//   const evenSet = removeDuplicate(even)
+//   const oddSet = removeDuplicate(odd)
+  
+//   evenSet.sort((a, b) => a - b)
+//   oddSet.sort((a, b) => b - a)
+  
+//   return evenSet.concat(oddSet)
+// }
+
+// function isEven(int) {
+//   return int % 2 === 0
+// }
+
+// function removeDuplicate(arr) {
+//   return [...new Set(arr)]
+// }
+
+//---------------Code Wars Sum of Cubes----------------------------
+
+// function sumCubes(n) {
+//   return getRange(n).reduce((a, c) => {
+//     return (cube(c)) + a
+//   }, 0)
+// }
+
+// function getRange(n) {
+//   return Array(n).fill(1).map((x, y) => x + y)
+// }
+
+// function cube(n) {
+//   return n * n * n
+// }
+
 //---------------Code Wars Sum of Odd Cubed Numbers----------------
 
 // function cubeOdd(arr) {
