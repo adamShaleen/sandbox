@@ -1,3 +1,24 @@
+//---------------Code Wars Sum of Odd Cubed Numbers----------------
+
+// function cubeOdd(arr) {
+//   if (containsInvalid(arr)) return undefined
+//   return arr.reduce((a, c) => {
+//     return isOdd(c) ? cube(c) + a : a
+//   }, 0)
+// }
+
+// function cube(int) { 
+//   return int * int * int
+// }
+
+// function isOdd(int) { 
+//   return int % 2 !== 0
+// }
+
+// function containsInvalid(arr) {
+//   return arr.filter(i => !Number.isInteger(i)).length > 0
+// }
+
 //---------------Code Wars Count the smiley faces------------------
 
 // function countSmileys(arr) {
