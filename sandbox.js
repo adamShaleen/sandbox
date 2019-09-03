@@ -1,3 +1,17 @@
+//---------------Code Wars Find Maximum and Minimum Values of a List----
+
+// function max(arr) {
+//   return sortArr(arr)[arr.length -1]
+// }
+
+// function min(arr) {
+//   return sortArr(arr)[0]
+// }
+
+// function sortArr(arr) {
+//   return arr.sort((a, b) => a - b)
+// }
+
 //---------------Code Wars Sort out the Men from the Boys----------
 
 // function menFromBoys(arr){
