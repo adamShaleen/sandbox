@@ -1,3 +1,17 @@
+//---------------Code Wars Playing with Sets Sup:Sub-------------------
+
+// function isSubsetOf(s1, s2){
+//   const arr = [];
+//   s1.forEach(i => arr.push(s2.has(i)))
+//   return arr.includes(false) ? false : true
+// }
+
+// function isSupersetOf(s1, s2){
+//   const arr = [];
+//   s2.forEach(i => arr.push(s1.has(i)))
+//   return arr.includes(false) ? false : true
+// }
+
 //---------------Code Wars Find Maximum and Minimum Values of a List----
 
 // function max(arr) {
