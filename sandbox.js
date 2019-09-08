@@ -1,3 +1,30 @@
+//---------------Code Wars Grasshopper-Grade Book----------------------
+
+// function getGrade(s1, s2, s3) {
+//   const averageScore = getAverageScore(s1, s2, s3);
+//   return getLetterGrade(averageScore);
+// }
+
+// function getAverageScore(s1, s2, s3) {
+//   return (s1 + s2 + s3) / 3;
+// }
+
+// function getLetterGrade(score) {
+//   return score >= 90 ?
+//     "A"
+//     :
+//     score >= 80 && score < 90 ?
+//     "B"
+//     :
+//     score >= 70 && score < 80 ?
+//     "C"
+//     :
+//     score >= 60 && score < 70 ?
+//     "D"
+//     :
+//     "F"
+// }
+
 //---------------Code Wars Playing with Sets Sup:Sub-------------------
 
 // function isSubsetOf(s1, s2){
