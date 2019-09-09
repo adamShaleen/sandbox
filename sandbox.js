@@ -1,3 +1,10 @@
+//---------------Code Wars Well of Ideas - Easy
+
+// function well(x){
+//   const goods = x.filter(e => e === "good");
+//   return goods.length > 2 ? "I smell a series!" : goods.length > 0 ? "Publish!" : "Fail!"
+// }
+
 //---------------Code Wars Grasshopper-Grade Book----------------------
 
 // function getGrade(s1, s2, s3) {
