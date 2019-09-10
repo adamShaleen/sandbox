@@ -1,3 +1,11 @@
+//---------------Code Wars Chuck Norris IV - Bearded Fist-------------
+
+// function fistBeard(arr) {
+//   return [].concat(...arr).reduce((a, c) => {
+//     return a + String.fromCharCode(c)
+//   }, "")
+// }
+
 //---------------Code Wars Well of Ideas - Easy
 
 // function well(x){
