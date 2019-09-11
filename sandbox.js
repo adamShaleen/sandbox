@@ -1,3 +1,210 @@
+//--------------Deep Javascript w/ Kyle Simpson ----------------------
+
+// Equality lessons
+// In this exercise, you will define a `findAll(..)` function that searches an array and returns an array with all coercive matches.
+// 1. The `findAll(..)` function takes a value and an array. It returns an array.
+// 2. The coercive matching that is allowed:
+
+// 	- exact matches (`Object.is(..)`)
+// 	- strings (except "" or whitespace-only) can match numbers
+// 	- numbers (except `NaN` and `+/- Infinity`) can match strings (hint: watch out for `-0`!)
+// 	- `null` can match `undefined`, and vice versa
+// 	- booleans can only match booleans
+// 	- objects only match the exact same object
+
+// Illistrates the greater point about coercion and what it acttually does
+
+// function findAll(match, arr) {
+//     var ret = [];
+//     for (let v of arr) {
+//         if (Object.is(match, v)) {
+//             ret.push(v);
+//         } else if (match == null && v == null) {
+//             ret.push(v);
+//         } else if (typeof match == "boolean") {
+//             if (match === v) {
+//                 ret.push(v);
+//             }
+//         } else if (
+//             typeof match == "string" &&
+//             match.trim() != "" &&
+//             typeof v == "number" &&
+//             !Object.is(-0, v)
+//         ) {
+//             if (match == v) {
+//                 ret.push(v);
+//             }
+//         } else if (
+//             typeof match == "number" &&
+//             !Object.is(match, -0) &&
+//             !Object.is(match, NaN) &&
+//             !Object.is(match, Infinity) &&
+//             !Object.is(match, -Infinity) &&
+//             typeof v == "string" &&
+//             v.trim() != ""
+//         ) {
+//             if (match == v) {
+//                 ret.push(v);
+//             }
+//         }
+//     }
+//     return ret;
+// }
+
+// // tests:
+// var myObj = { a: 2 };
+
+// var values = [
+//     null,
+//     undefined,
+//     -0,
+//     0,
+//     13,
+//     42,
+//     NaN,
+//     -Infinity,
+//     Infinity,
+//     "",
+//     "0",
+//     "42",
+//     "42hello",
+//     "true",
+//     "NaN",
+//     true,
+//     false,
+//     myObj
+// ];
+
+// console.log(setsMatch(findAll(null, values), [null, undefined]) === true);
+// console.log(setsMatch(findAll(undefined, values), [null, undefined]) === true);
+// console.log(setsMatch(findAll(0, values), [0, "0"]) === true);
+// console.log(setsMatch(findAll(-0, values), [-0]) === true);
+// console.log(setsMatch(findAll(13, values), [13]) === true);
+// console.log(setsMatch(findAll(42, values), [42, "42"]) === true);
+// console.log(setsMatch(findAll(NaN, values), [NaN]) === true);
+// console.log(setsMatch(findAll(-Infinity, values), [-Infinity]) === true);
+// console.log(setsMatch(findAll(Infinity, values), [Infinity]) === true);
+// console.log(setsMatch(findAll("", values), [""]) === true);
+// console.log(setsMatch(findAll("0", values), [0, "0"]) === true);
+// console.log(setsMatch(findAll("42", values), [42, "42"]) === true);
+// console.log(setsMatch(findAll("42hello", values), ["42hello"]) === true);
+// console.log(setsMatch(findAll("true", values), ["true"]) === true);
+// console.log(setsMatch(findAll(true, values), [true]) === true);
+// console.log(setsMatch(findAll(false, values), [false]) === true);
+// console.log(setsMatch(findAll(myObj, values), [myObj]) === true);
+
+// console.log(setsMatch(findAll(null, values), [null, 0]) === false);
+// console.log(setsMatch(findAll(undefined, values), [NaN, 0]) === false);
+// console.log(setsMatch(findAll(0, values), [0, -0]) === false);
+// console.log(setsMatch(findAll(42, values), [42, "42hello"]) === false);
+// console.log(setsMatch(findAll(25, values), [25]) === false);
+// console.log(
+//     setsMatch(findAll(Infinity, values), [Infinity, -Infinity]) === false
+// );
+// console.log(setsMatch(findAll("", values), ["", 0]) === false);
+// console.log(setsMatch(findAll("false", values), [false]) === false);
+// console.log(setsMatch(findAll(true, values), [true, "true"]) === false);
+// console.log(setsMatch(findAll(true, values), [true, 1]) === false);
+// console.log(setsMatch(findAll(false, values), [false, 0]) === false);
+
+// ***************************
+
+// function setsMatch(arr1, arr2) {
+//     if (
+//         Array.isArray(arr1) &&
+//         Array.isArray(arr2) &&
+//         arr1.length == arr2.length
+//     ) {
+//         for (let v of arr1) {
+//             if (!arr2.includes(v)) return false;
+//         }
+//         return true;
+//     }
+//     return false;
+// }
+
+// coercion lessons
+// // name validator, must be string, must be non empty, must have 3 characters at least
+
+// function isValidName(name) {
+//     return typeof name === "string" && name.trim().length > 2;
+// }
+
+// // hoursAttended: 2 params (attended, length): only string or number, both treated as numbers, both must be  <= 0 , whole numbers,
+// // attended must be <= length
+
+// this is super ugly and hurts my heart
+
+// function hoursAttended(attended, length) {
+//     if (typeof attended == "string" && attended.trim() !== "") {
+//         attended = Number(attended);
+//     }
+//     if (typeof length == "string" && length.trim() !== "") {
+//         length = Number(length);
+//     }
+//     if (
+//         typeof attended == "number" &&
+//         typeof length == "number" &&
+//         attended <= length &&
+//         attended >= 0 &&
+//         length >= 0 &&
+//         Number.isInteger(attended) &&
+//         Number.isInteger(length)
+//     ) {
+//         return true;
+//     }
+
+//     return false;
+// }
+
+// // tests:
+// console.log(isValidName("Frank") === true);
+// console.log(isValidName(false) === false);
+// console.log(isValidName(null) === false);
+// console.log(isValidName(undefined) === false);
+// console.log(isValidName("") === false);
+// console.log(isValidName("  \t\n") === false);
+// console.log(isValidName("X") === false);
+// console.log(hoursAttended(6, 10) === true);
+// console.log(hoursAttended(6, "10") === true);
+// console.log(hoursAttended("6", 10) === true);
+// console.log(hoursAttended("6", "10") === true);
+// console.log(hoursAttended("", 6) === false);
+// console.log(hoursAttended(6, "") === false);
+// console.log(hoursAttended("", "") === false);
+// console.log(hoursAttended("foo", 6) === false);
+// console.log(hoursAttended(6, "foo") === false);
+// console.log(hoursAttended("foo", "bar") === false);
+// console.log(hoursAttended(null, null) === false);
+// console.log(hoursAttended(null, undefined) === false);
+// console.log(hoursAttended(undefined, null) === false);
+// console.log(hoursAttended(undefined, undefined) === false);
+// console.log(hoursAttended(false, false) === false);
+// console.log(hoursAttended(false, true) === false);
+// console.log(hoursAttended(true, false) === false);
+// console.log(hoursAttended(true, true) === false);
+// console.log(hoursAttended(10, 6) === false);
+// console.log(hoursAttended(10, "6") === false);
+// console.log(hoursAttended("10", 6) === false);
+// console.log(hoursAttended("10", "6") === false);
+// console.log(hoursAttended(6, 10.1) === false);
+// console.log(hoursAttended(6.1, 10) === false);
+// console.log(hoursAttended(6, "10.1") === false);
+// console.log(hoursAttended("6.1", 10) === false);
+// console.log(hoursAttended("6.1", "10.1") === false);
+
+//---------------Code Wars Sum of Array Averages----------------------
+
+// Code Wars test runner wouldn't let me use node 11
+
+// function sumAverage(arr) {
+//     const output = arr.map(a => {
+//         return (a.reduce((acc, curr) => acc + curr, 0) / a.length);
+//     })
+
+//     return Math.floor(output.reduce((a, c) => a + c, 0));
+//   }
+
 //---------------Code Wars Chuck Norris IV - Bearded Fist-------------
 
 // function fistBeard(arr) {
@@ -73,15 +280,15 @@
 // function menFromBoys(arr){
 //   const even = []
 //   const odd = []
-  
+
 //   arr.map(i => isEven(i) ? even.push(i) : odd.push(i))
-  
+
 //   const evenSet = removeDuplicate(even)
 //   const oddSet = removeDuplicate(odd)
-  
+
 //   evenSet.sort((a, b) => a - b)
 //   oddSet.sort((a, b) => b - a)
-  
+
 //   return evenSet.concat(oddSet)
 // }
 
@@ -118,11 +325,11 @@
 //   }, 0)
 // }
 
-// function cube(int) { 
+// function cube(int) {
 //   return int * int * int
 // }
 
-// function isOdd(int) { 
+// function isOdd(int) {
 //   return int % 2 !== 0
 // }
 
@@ -169,7 +376,7 @@
 // function maxMultiple(divisor, bound) {
 //   let largestInt = 0
 //   const range = createRange(divisor, bound)
-  
+
 //   range.map(int => {
 //     if (isLargest(divisor, bound, largestInt, int)) {
 //       largestInt = int
@@ -204,7 +411,7 @@
 // function rowWeights(arr) {
 //   const team1 = [0];
 //   const team2 = [0];
-  
+
 //   arr.map((person, i) => {
 //     if (isEven(i)) {
 //       team1.push(arr[i]);
@@ -212,10 +419,10 @@
 //       team2.push(arr[i]);
 //     }
 //   })
-  
+
 //   const team1Output = combineWeights(team1);
 //   const team2Output = combineWeights(team2);
-  
+
 //   return [team1Output, team2Output];
 // }
 
@@ -241,13 +448,13 @@
 //     return str.replace(/[^a-z0-9]/g, "").split("").reduce((a, c) => {
 //       return a + alphaMap[c]
 //     }, 0) * position
-//   })  
+//   })
 // }
 
 //---------------Code Wars My Languages-----------------------------
 
 // const myLanguages = (results) => {
-  
+
 //   return Object.entries(results)
 //     .filter(result => result[1] > 59)
 //     .sort((a, b) => b[1] - a[1])
@@ -257,15 +464,15 @@
 //---------------Code Wars Lottery Ticket---------------------------
 
 // const bingo = (ticket, win) => {
-  
+
 //   let miniWinCount = 0;
-  
+
 //   ticket.map((currentTicket, index) => {
 //     if (currentTicket[0].includes(String.fromCharCode(currentTicket[1]))) {
 //       miniWinCount++;
 //     }
 //   })
-  
+
 //   return (miniWinCount >= win ? 'Winner!' : 'Loser!');
 // }
 
@@ -273,7 +480,7 @@
 // example of creating a copy of an array of objects, adding a new property, and not mutating the original by using the spread operator
 
 // function greetDevelopers(list) {
-//   return list.map(index => 
+//   return list.map(index =>
 //     index = {...index, greeting: `Hi ${index.firstName}, what do you like the most about ${index.language}?`
 //   });
 // }
@@ -283,11 +490,11 @@
 // Yes, you've done this one a bunch, but here's a different take on it while using a ternary across all conditions
 
 // fizzBuzz = () => {
-	
+
 //   for (let i = 1; i < 101; i++) {
 //   	console.log((i % 15 === 0 ? "FizzBuzz" :
 //     		i % 3 === 0 ? "Fizz" :
-//     		i % 5 === 0 ? "Buzz" : 
+//     		i % 5 === 0 ? "Buzz" :
 //     		i));
 // 	}
 // }
@@ -688,7 +895,6 @@
 //
 // telephoneCheck("555-555-5555");
 
-
 //-------------------Free Code Camp 'Arguments Optional'-----------------------
 
 //This is the example from the forum.  Spent 2 days and couldn't come up with anything that worked by myself :(
@@ -760,7 +966,7 @@
 //   // loop through arr of binary strings
 //   for (let i = 0; i < arr.length; i++) {
 //
-		//use base param from parseInt and convert to Character value
+//use base param from parseInt and convert to Character value
 // 		num.push(String.fromCharCode(parseInt(arr[i], 2)));
 //   }
 //
@@ -1101,7 +1307,6 @@
 // console.log(translatePigLatin("algorithm")); // algorithmway
 // console.log(translatePigLatin("eight")); // eightway
 
-
 //-------------------Free Code Camp 'Search and replace'---------------------------
 
 // function myReplace(str, before, after) {
@@ -1115,7 +1320,6 @@
 // }
 //
 // myReplace("A quick brown fox jumped over the lazy dog", "jumped", "leaped");
-
 
 //-------------------Free Code Camp 'Wherefore art thou'---------------------------
 
@@ -1141,7 +1345,6 @@
 // console.log(whatIsInAName([{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }], { last: "Capulet" }));
 //
 // console.log(whatIsInAName([{ "a": 1, "b": 2 }, { "a": 1 }, { "a": 1, "b": 2, "c": 2 }], { "a": 1, "c": 2 }));
-
 
 //-------------------Free Code Camp 'Roman Numeral Converter'---------------------------
 
@@ -1191,7 +1394,6 @@
 //
 //
 // console.log(diffArray(['taco', 'taco', 'burrito'], ['taco', 'taco', 'taco'])); //['burrito']
-
 
 //-------------------Free Code Camp 'Sum All Numbers in a Range'---------------------------
 
@@ -1277,7 +1479,6 @@
 //   return x;
 // }
 
-
 //------------------------------------------------------------------------------------------------------
 // baby's first ternary
 
@@ -1324,16 +1525,10 @@
 // console.log(declareWinner(new Fighter("Harald", 20, 5), new Fighter("Harry", 5, 4), "Harry"));  // Harald
 // console.log(declareWinner(new Fighter("Jerry", 30, 3), new Fighter("Harald", 20, 5), "Jerry"));  // Harald
 
-
-
 //----------------------------------------------------------------------------------------------------------------------
-
-
-
 
 // Codewars 'Money, Money, Money' Kata 8
 // ES6 (sort of).  Really really ugly way of doing this.
-
 
 // function calculateYears(principal, interest, tax, desired) {
 
@@ -1360,7 +1555,6 @@
 // console.log(calculateYears(1000, .05, .18, 1100));  // 3
 // console.log(calculateYears(1000,0.01625,0.18,1200));  // 14
 // console.log(calculateYears(1000,0.05,0.18,1000));  // 0
-
 
 // create a clone of an object with a new property
 // still getting an error on codewars
@@ -1405,7 +1599,6 @@
 //
 // destroyer([1, 2, 3, 1, 2, 3], 2, 3);
 
-
 //---------------------------------------------------------------------------------------------------------
 //Free Code camp
 //Falsey Bouncer
@@ -1421,8 +1614,6 @@
 //
 // console.log(bouncer([7, "ate", "", false, 9]));  // [7, 'ate', 9]
 // console.log(bouncer([false, null, 0, NaN, undefined, ""])); // []
-
-
 
 //---------------------------------------------------------------------------------------------------------
 //Free Code camp
@@ -1440,7 +1631,6 @@
 // console.log(mutation(['hello', 'Hello']));
 // console.log(mutation(["zyxwvutsrqponmlkjihgfedcba", "qrstu"]));
 
-
 //Another method using ES6
 //function mutation(arr) {
 //   const first = arr[0].toLowerCase();
@@ -1456,7 +1646,6 @@
 // 	var cut = arr.splice(0, howMany);
 // 	return arr;
 // }
-
 
 //---------------------------------------------------------------------------------------------------------
 //Free Code camp
@@ -1543,7 +1732,6 @@
 // 	return arr;
 // }
 
-
 //---------------------------------------------------------------------------------------------------------
 //Code Wars 'Regex validate PIN code'
 
@@ -1554,8 +1742,6 @@
 // 	}
 // 	return false;
 // }
-
-
 
 //---------------------------------------------------------------------------------------------------------
 //Code Wars 'Highest profit'
@@ -1575,7 +1761,6 @@
 //   return [min, max];
 // }
 
-
 //---------------------------------------------------------------------------------------------------------
 //Code Wars 'Reverse Words'
 
@@ -1588,8 +1773,6 @@
 // }
 //
 // reverseWords('This is an example!');
-
-
 
 //---------------------------------------------------------------------------------------------------------
 //Code Wars 'Tea for two'
@@ -1605,7 +1788,6 @@
 // }
 //
 // tea42('pre2ty');  => pretty
-
 
 //---------------------------------------------------------------------------------------------------------
 //Free code camp
@@ -1636,8 +1818,6 @@
 // }
 //
 // titleCase("I'm a little teapot"); => "I'm A Little Teapot"
-
-
 
 //---------------------------------------------------------------------------------------------------------
 //Free code camp
@@ -1672,7 +1852,6 @@
 // palindrome('eye');  => true
 // palindrome('fart'); => false
 
-
 //----------------------------------------------------------------------------------------------------------------
 //Factorialize a single number
 // function factorialize(num) {
@@ -1685,7 +1864,6 @@
 //
 // factorialize(5); => 120
 // factorialize(10); => 3628800
-
 
 //----------------------------------------------------------------------------------------------------------------
 //Remove all duplicate instances from an array
@@ -1727,7 +1905,6 @@
 //   return 'No such contact';
 // }
 
-
 //----------------------------------------------------------------------------------------------------------------
 // filter odd numbers out of an array of numbers
 
@@ -1736,7 +1913,6 @@
 // 		return input % 2 === 0 ;
 // 	});
 // }
-
 
 //----------------------------------------------------------------------------------------------------------------
 //really stupid example of reformatting an object to read in plain english
@@ -1750,8 +1926,6 @@
 // 	return output;
 // }
 
-
-
 //----------------------------------------------------------------------------------------------------------------
 //removing all strings from an array
 
@@ -1763,8 +1937,6 @@
 // 	}
 // 	return array;
 // }
-
-
 
 //----------------------------------------------------------------------------------------------------------------
 // Your online store likes to give out coupons for special occasions. Some customers try to cheat the system by entering invalid codes or using expired coupons.
@@ -1782,8 +1954,6 @@
 // 		return false;
 // 	}
 // }
-
-
 
 //----------------------------------------------------------------------------------------------------------------
 // Given an array of numbers, find the largest pair sum in the array.
@@ -1809,8 +1979,6 @@
 // console.log(largestPairSum([99,2,2,23,19]));
 // console.log(largestPairSum([-10, -8, -16, -18, -19]));
 
-
-
 //----------------------------------------------------------------------------------------------------------------
 //Create a function, getVillainName, that returns a villain name based on the user's birthday.
 //(The birthday will be passed to the function as a valid Date object, so for simplicity,
@@ -1827,7 +1995,6 @@
 // return 'The ' + first[firstPosition] + ' ' + last[lastPosition];
 // }
 
-
 //----------------------------------------------------------------------------------------------------------------
 // REGULAR EXPRESSIONS
 // Removing lowercase vowels from string
@@ -1835,7 +2002,6 @@
 // function shortcut(string) {
 //   return string.replace(/[aeiou]/gi, '');
 // }
-
 
 //----------------------------------------------------------------------------------------------------------------
 // Calorie Tracker App  CLOSURES
@@ -1925,7 +2091,6 @@
 // var runTheClosure = closureFn(5);
 //
 // console.log(runTheClosure());  //I have owned 5 honda's!
-
 
 //the inner function maintains the vars of the outer function and the gloabal scope
 //------------------------------------------------------------------------------------------------------------
@@ -2313,9 +2478,9 @@ of Data is to have an Array full of objects. */
 
 //Create an empty array called users.
 
-  //Code Here
+//Code Here
 
-  // var users = [];
+// var users = [];
 
 /*Now add three user objects to your users array. Each user object should contain the
 following properties. name, email, password, username.*/
@@ -2412,11 +2577,11 @@ following properties. name, email, password, username.*/
 //Write a function called reverse that takes a given str as it's only argument
 //and returns that string after it's been reversed
 
-  // function reverseString(string) {
-  //   return string.split('').reverse().join('');
-  // }
-  //
-  // console.log(reverseString('adam is super cool'));
+// function reverseString(string) {
+//   return string.split('').reverse().join('');
+// }
+//
+// console.log(reverseString('adam is super cool'));
 //------------------------------------------------------------------------------------------------
 
 //  Arrange array in even/odd order and return
@@ -2562,7 +2727,6 @@ following properties. name, email, password, username.*/
 // console.log(letterChanges('scott'));
 
 //----------------------------------------------------------------------------------------------
-
 
 //  Counter function
 
