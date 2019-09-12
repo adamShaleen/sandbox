@@ -193,6 +193,38 @@
 // console.log(hoursAttended("6.1", 10) === false);
 // console.log(hoursAttended("6.1", "10.1") === false);
 
+//---------------Code Wars Password Validator-----------------------
+
+// Trying to be functional!
+
+// function password(requirements, str) {
+//     return requirements.map(f => f(str)).includes(false) ? false : true
+//   }
+
+//   function validUpperCase(str) {
+//     return Array.isArray(str.match(/[A-Z]/g))
+//   }
+
+//   function validLowerCase(str) {
+//     return Array.isArray(str.match(/[a-z]/g))
+//   }
+
+//   function validNumber(str) {
+//     return Array.isArray(str.match(/[0-9]/g))
+//   }
+
+//   function validLength(str) {
+//     return str.length >= 8
+//   }
+
+//   const validation = [validUpperCase, validLowerCase, validNumber, validLength]
+
+//---------------Code Wars Remove Duplicate Words--------------------
+
+// function removeDuplicateWords (s) {
+//     return [...new Set(s.split(" "))].join(" ")
+//   }
+
 //---------------Code Wars Sum of Array Averages----------------------
 
 // Code Wars test runner wouldn't let me use node 11
