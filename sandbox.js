@@ -193,6 +193,26 @@
 // console.log(hoursAttended("6.1", 10) === false);
 // console.log(hoursAttended("6.1", "10.1") === false);
 
+
+//---------------Code Wars Odd Ones Out-----------------------------
+
+// function oddOnesOut(nums) {
+//     return nums.reduce((a, c) => {
+//       if (occursEven(getOccurences(nums, c))) {
+//         a.push(c)
+//       }
+//       return a
+//     }, [])
+//   }  
+  
+//   function getOccurences(arr, target) {
+//     return arr.filter(i => i == target).length;
+//   }
+  
+//   function occursEven(arrLength) {
+//     return (arrLength % 2 == 0) ? true : false;
+//   }
+
 //---------------Code Wars Password Validator-----------------------
 
 // Trying to be functional!
