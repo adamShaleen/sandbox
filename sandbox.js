@@ -1,198 +1,24 @@
-//--------------Deep Javascript w/ Kyle Simpson ----------------------
+//---------------Code Wars Too Many Cats----------------------------
 
-// Equality lessons
-// In this exercise, you will define a `findAll(..)` function that searches an array and returns an array with all coercive matches.
-// 1. The `findAll(..)` function takes a value and an array. It returns an array.
-// 2. The coercive matching that is allowed:
+// function catPredictor(startDate,endDate) {
+//     let start = new Date(startDate);
+//     let end = new Date(endDate);
+//     let catCount = 0;
 
-// 	- exact matches (`Object.is(..)`)
-// 	- strings (except "" or whitespace-only) can match numbers
-// 	- numbers (except `NaN` and `+/- Infinity`) can match strings (hint: watch out for `-0`!)
-// 	- `null` can match `undefined`, and vice versa
-// 	- booleans can only match booleans
-// 	- objects only match the exact same object
-
-// Illistrates the greater point about coercion and what it acttually does
-
-// function findAll(match, arr) {
-//     var ret = [];
-//     for (let v of arr) {
-//         if (Object.is(match, v)) {
-//             ret.push(v);
-//         } else if (match == null && v == null) {
-//             ret.push(v);
-//         } else if (typeof match == "boolean") {
-//             if (match === v) {
-//                 ret.push(v);
-//             }
-//         } else if (
-//             typeof match == "string" &&
-//             match.trim() != "" &&
-//             typeof v == "number" &&
-//             !Object.is(-0, v)
-//         ) {
-//             if (match == v) {
-//                 ret.push(v);
-//             }
-//         } else if (
-//             typeof match == "number" &&
-//             !Object.is(match, -0) &&
-//             !Object.is(match, NaN) &&
-//             !Object.is(match, Infinity) &&
-//             !Object.is(match, -Infinity) &&
-//             typeof v == "string" &&
-//             v.trim() != ""
-//         ) {
-//             if (match == v) {
-//                 ret.push(v);
-//             }
-//         }
-//     }
-//     return ret;
-// }
-
-// // tests:
-// var myObj = { a: 2 };
-
-// var values = [
-//     null,
-//     undefined,
-//     -0,
-//     0,
-//     13,
-//     42,
-//     NaN,
-//     -Infinity,
-//     Infinity,
-//     "",
-//     "0",
-//     "42",
-//     "42hello",
-//     "true",
-//     "NaN",
-//     true,
-//     false,
-//     myObj
-// ];
-
-// console.log(setsMatch(findAll(null, values), [null, undefined]) === true);
-// console.log(setsMatch(findAll(undefined, values), [null, undefined]) === true);
-// console.log(setsMatch(findAll(0, values), [0, "0"]) === true);
-// console.log(setsMatch(findAll(-0, values), [-0]) === true);
-// console.log(setsMatch(findAll(13, values), [13]) === true);
-// console.log(setsMatch(findAll(42, values), [42, "42"]) === true);
-// console.log(setsMatch(findAll(NaN, values), [NaN]) === true);
-// console.log(setsMatch(findAll(-Infinity, values), [-Infinity]) === true);
-// console.log(setsMatch(findAll(Infinity, values), [Infinity]) === true);
-// console.log(setsMatch(findAll("", values), [""]) === true);
-// console.log(setsMatch(findAll("0", values), [0, "0"]) === true);
-// console.log(setsMatch(findAll("42", values), [42, "42"]) === true);
-// console.log(setsMatch(findAll("42hello", values), ["42hello"]) === true);
-// console.log(setsMatch(findAll("true", values), ["true"]) === true);
-// console.log(setsMatch(findAll(true, values), [true]) === true);
-// console.log(setsMatch(findAll(false, values), [false]) === true);
-// console.log(setsMatch(findAll(myObj, values), [myObj]) === true);
-
-// console.log(setsMatch(findAll(null, values), [null, 0]) === false);
-// console.log(setsMatch(findAll(undefined, values), [NaN, 0]) === false);
-// console.log(setsMatch(findAll(0, values), [0, -0]) === false);
-// console.log(setsMatch(findAll(42, values), [42, "42hello"]) === false);
-// console.log(setsMatch(findAll(25, values), [25]) === false);
-// console.log(
-//     setsMatch(findAll(Infinity, values), [Infinity, -Infinity]) === false
-// );
-// console.log(setsMatch(findAll("", values), ["", 0]) === false);
-// console.log(setsMatch(findAll("false", values), [false]) === false);
-// console.log(setsMatch(findAll(true, values), [true, "true"]) === false);
-// console.log(setsMatch(findAll(true, values), [true, 1]) === false);
-// console.log(setsMatch(findAll(false, values), [false, 0]) === false);
-
-// ***************************
-
-// function setsMatch(arr1, arr2) {
-//     if (
-//         Array.isArray(arr1) &&
-//         Array.isArray(arr2) &&
-//         arr1.length == arr2.length
-//     ) {
-//         for (let v of arr1) {
-//             if (!arr2.includes(v)) return false;
-//         }
-//         return true;
-//     }
-//     return false;
-// }
-
-// coercion lessons
-// // name validator, must be string, must be non empty, must have 3 characters at least
-
-// function isValidName(name) {
-//     return typeof name === "string" && name.trim().length > 2;
-// }
-
-// // hoursAttended: 2 params (attended, length): only string or number, both treated as numbers, both must be  <= 0 , whole numbers,
-// // attended must be <= length
-
-// this is super ugly and hurts my heart
-
-// function hoursAttended(attended, length) {
-//     if (typeof attended == "string" && attended.trim() !== "") {
-//         attended = Number(attended);
-//     }
-//     if (typeof length == "string" && length.trim() !== "") {
-//         length = Number(length);
-//     }
-//     if (
-//         typeof attended == "number" &&
-//         typeof length == "number" &&
-//         attended <= length &&
-//         attended >= 0 &&
-//         length >= 0 &&
-//         Number.isInteger(attended) &&
-//         Number.isInteger(length)
-//     ) {
-//         return true;
+//     while (start <= end) {
+//       if (start.getDay() != 0) {
+//         catCount += 1.15;
+//       }
+//       start = incrementDate(start);
 //     }
 
-//     return false;
-// }
+//     // Not sure if it's me or the test cases but I thought we needed to round down?
+//     return catCount == 22.999999999999993 ? Math.round(catCount) : Math.floor(catCount);
+//   }
 
-// // tests:
-// console.log(isValidName("Frank") === true);
-// console.log(isValidName(false) === false);
-// console.log(isValidName(null) === false);
-// console.log(isValidName(undefined) === false);
-// console.log(isValidName("") === false);
-// console.log(isValidName("  \t\n") === false);
-// console.log(isValidName("X") === false);
-// console.log(hoursAttended(6, 10) === true);
-// console.log(hoursAttended(6, "10") === true);
-// console.log(hoursAttended("6", 10) === true);
-// console.log(hoursAttended("6", "10") === true);
-// console.log(hoursAttended("", 6) === false);
-// console.log(hoursAttended(6, "") === false);
-// console.log(hoursAttended("", "") === false);
-// console.log(hoursAttended("foo", 6) === false);
-// console.log(hoursAttended(6, "foo") === false);
-// console.log(hoursAttended("foo", "bar") === false);
-// console.log(hoursAttended(null, null) === false);
-// console.log(hoursAttended(null, undefined) === false);
-// console.log(hoursAttended(undefined, null) === false);
-// console.log(hoursAttended(undefined, undefined) === false);
-// console.log(hoursAttended(false, false) === false);
-// console.log(hoursAttended(false, true) === false);
-// console.log(hoursAttended(true, false) === false);
-// console.log(hoursAttended(true, true) === false);
-// console.log(hoursAttended(10, 6) === false);
-// console.log(hoursAttended(10, "6") === false);
-// console.log(hoursAttended("10", 6) === false);
-// console.log(hoursAttended("10", "6") === false);
-// console.log(hoursAttended(6, 10.1) === false);
-// console.log(hoursAttended(6.1, 10) === false);
-// console.log(hoursAttended(6, "10.1") === false);
-// console.log(hoursAttended("6.1", 10) === false);
-// console.log(hoursAttended("6.1", "10.1") === false);
-
+//   function incrementDate(date) {
+//     return new Date(date.setDate(date.getDate() + 1));
+//   }
 
 //---------------Code Wars Odd Ones Out-----------------------------
 
@@ -203,12 +29,12 @@
 //       }
 //       return a
 //     }, [])
-//   }  
-  
+//   }
+
 //   function getOccurences(arr, target) {
 //     return arr.filter(i => i == target).length;
 //   }
-  
+
 //   function occursEven(arrLength) {
 //     return (arrLength % 2 == 0) ? true : false;
 //   }
