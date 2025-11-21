@@ -3,24 +3,24 @@
 // STILL WORKING ON THIS
 
 function numericals(s) {
-    // create an array from the string chars and reduce through it
-    return s
-        .split("")
-        .reduce((a, c) => {
-            // if the accumulation doesn't yet have the character, add a 1 count and the char
-            if (!a.includes(c)) {
-                a.push(1, c);
-                // otherwise get the existing count, add it +1, and then add the char to the accumulation
-            } else {
-                const newCount =
-                    a.filter(i => i == c && !Number.isInteger(i)).length + 1;
-                a.push(newCount, c);
-            }
-            return a;
-            // filter out all but the "counts" and join as a string
-        }, [])
-        .filter(i => Number.isInteger(i))
-        .join("");
+  // create an array from the string chars and reduce through it
+  return s
+    .split('')
+    .reduce((a, c) => {
+      // if the accumulation doesn't yet have the character, add a 1 count and the char
+      if (!a.includes(c)) {
+        a.push(1, c);
+        // otherwise get the existing count, add it +1, and then add the char to the accumulation
+      } else {
+        const newCount =
+          a.filter((i) => i == c && !Number.isInteger(i)).length + 1;
+        a.push(newCount, c);
+      }
+      return a;
+      // filter out all but the "counts" and join as a string
+    }, [])
+    .filter((i) => Number.isInteger(i))
+    .join('');
 }
 
 //---------------Code Wars Too Many Cats----------------------------
@@ -2678,3 +2678,52 @@ following properties. name, email, password, username.*/
 // console.log(missingNo([0, 1, 2, 3, 5]));
 
 //----------------------------------------------------------------------------------------------
+
+// CodeWars - Parse a linked list from a string
+// takes in a string as a representation of a linked list
+// ex "1 -> 2 -> 3 -> null" returns new Node(1, new Node(2, new Node(3)))
+
+// const parse = (string) => {
+//   const parts = string.split(' -> ');
+
+//   if (parts.length === 1 && parts[0] === 'null') return null;
+
+//   // Build the linked list from right to left
+//   let head = null;
+
+//   // Iterate backwards through the parts (excluding the last "null")
+//   for (let i = parts.length - 2; i >= 0; i--) {
+//     const data = Number(parts[i]);
+//     head = new Node(data, head);
+//   }
+
+//   return head;
+// };
+
+// a more readable functional version
+// Functional version using recursion
+const parseReadable = (string) => {
+  const parts = string.split(' -> ');
+  
+  const buildList = (values) => {
+    // Base case: empty array or reached "null"
+    if (values.length === 0 || values[0] === 'null') {
+      return null;
+    }
+    
+    // Recursive case: create node with first value, 
+    // and recursively build the rest
+    return new Node(Number(values[0]), buildList(values.slice(1)));
+  };
+  
+  return buildList(parts);
+}
+
+// A functional version that's super concise
+// const parseFunctional = (string) => {
+//   const build = ([head, ...tail]) => {
+//     return !head || head === 'null' ? null : new Node(Number(head), build(tail));
+//   }
+
+//   return build(string.split(' -> '));
+// }
