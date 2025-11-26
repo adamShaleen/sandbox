@@ -2702,22 +2702,22 @@ following properties. name, email, password, username.*/
 
 // a more readable functional version
 // Functional version using recursion
-const parseReadable = (string) => {
-  const parts = string.split(' -> ');
-  
-  const buildList = (values) => {
-    // Base case: empty array or reached "null"
-    if (values.length === 0 || values[0] === 'null') {
-      return null;
-    }
-    
-    // Recursive case: create node with first value, 
-    // and recursively build the rest
-    return new Node(Number(values[0]), buildList(values.slice(1)));
-  };
-  
-  return buildList(parts);
-}
+// const parseReadable = (string) => {
+//   const parts = string.split(' -> ');
+
+//   const buildList = (values) => {
+//     // Base case: empty array or reached "null"
+//     if (values.length === 0 || values[0] === 'null') {
+//       return null;
+//     }
+
+//     // Recursive case: create node with first value,
+//     // and recursively build the rest
+//     return new Node(Number(values[0]), buildList(values.slice(1)));
+//   };
+
+//   return buildList(parts);
+// }
 
 // A functional version that's super concise
 // const parseFunctional = (string) => {
@@ -2727,3 +2727,27 @@ const parseReadable = (string) => {
 
 //   return build(string.split(' -> '));
 // }
+
+
+//----------------------------------------------------------------------------------------------
+// Codewars - "Scramblies" uses hash map
+// Complete the function scramble(str1, str2) that returns true if a portion 
+// of str1 characters can be rearranged to match str2, otherwise returns false.
+
+// const scramble = (chars, targetWord) => {
+//   // Build frequency map of available characters - O(m)
+//   const charCount = {};
+//   for (const char of chars) {
+//     charCount[char] = (charCount[char] || 0) + 1;
+//   }
+  
+//   // Check if we have enough of each character in targetWord - O(n)
+//   for (const char of targetWord) {
+//     if (!charCount[char] || charCount[char] === 0) {
+//       return false;  // Missing character or not enough
+//     }
+//     charCount[char]--;  // Use one instance of the character
+//   }
+  
+//   return true;  // All characters are available
+// };
