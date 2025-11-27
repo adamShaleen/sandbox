@@ -2728,10 +2728,9 @@ following properties. name, email, password, username.*/
 //   return build(string.split(' -> '));
 // }
 
-
 //----------------------------------------------------------------------------------------------
 // Codewars - "Scramblies" uses hash map
-// Complete the function scramble(str1, str2) that returns true if a portion 
+// Complete the function scramble(str1, str2) that returns true if a portion
 // of str1 characters can be rearranged to match str2, otherwise returns false.
 
 // const scramble = (chars, targetWord) => {
@@ -2740,7 +2739,7 @@ following properties. name, email, password, username.*/
 //   for (const char of chars) {
 //     charCount[char] = (charCount[char] || 0) + 1;
 //   }
-  
+
 //   // Check if we have enough of each character in targetWord - O(n)
 //   for (const char of targetWord) {
 //     if (!charCount[char] || charCount[char] === 0) {
@@ -2748,6 +2747,27 @@ following properties. name, email, password, username.*/
 //     }
 //     charCount[char]--;  // Use one instance of the character
 //   }
-  
+
 //   return true;  // All characters are available
+// };
+
+//----------------------------------------------------------------------------------------------
+// Codewars - "StringScramble"
+// used the Map constructor instead of object literal
+
+// const scramble = (str, arr) => {
+//   // split the string into an iterable
+//   const strAsArr = str.split('');
+
+//   // create a map of key/value pairs where the key is the position and the value is the char
+//   const positionMap = arr.reduce((a, c, index) => {
+//     a.set(c, strAsArr[index]);  // using the position as the key as keys need to be unique
+//     return a;
+//   }, new Map());
+
+//   // make an array from the map entries, sort by position, and construct the output string
+//   return [...positionMap.entries()].sort((a, b) => a[0] - b[0]).reduce((a, c) => {
+//     a+= c[1];
+//     return a;
+//   }, '');
 // };
