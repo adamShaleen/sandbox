@@ -2771,3 +2771,25 @@ following properties. name, email, password, username.*/
 //     return a;
 //   }, '');
 // };
+
+//----------------------------------------------------------------------------------------------
+// Codewars - "Maximum Length Difference"
+
+// const mxdiflgFunctional = (arr1, arr2) => {
+//   if (arr1.length === 0 || arr2.length === 0) return -1;
+  
+//   const getMinMax = (arr) => {
+//     return arr.reduce(
+//       ([min, max], str) => {
+//         const len = str.length;
+//         return [Math.min(min, len), Math.max(max, len)];
+//       },
+//       [Infinity, -Infinity]
+//     );
+//   };
+  
+//   const [min1, max1] = getMinMax(arr1);
+//   const [min2, max2] = getMinMax(arr2);
+  
+//   return Math.max(max1 - min2, max2 - min1);
+// };
