@@ -2777,7 +2777,7 @@ following properties. name, email, password, username.*/
 
 // const mxdiflgFunctional = (arr1, arr2) => {
 //   if (arr1.length === 0 || arr2.length === 0) return -1;
-  
+
 //   const getMinMax = (arr) => {
 //     return arr.reduce(
 //       ([min, max], str) => {
@@ -2787,9 +2787,26 @@ following properties. name, email, password, username.*/
 //       [Infinity, -Infinity]
 //     );
 //   };
-  
+
 //   const [min1, max1] = getMinMax(arr1);
 //   const [min2, max2] = getMinMax(arr2);
-  
+
 //   return Math.max(max1 - min2, max2 - min1);
 // };
+
+//----------------------------------------------------------------------------------------------
+// Codewars - "Clean Nesting Tree"
+
+// const isCleanlyNested = (tree) => {
+//   const checkNode = (node) => {      
+//     if (node.every(n => n.length === 0)) return true;
+  
+//     if (node.every(n => n.length > 0)) {
+//       if (node.every(n => checkNode(n))) return true;
+//     }
+  
+//     return false;
+// }
+  
+//   return checkNode(tree);
+// }
