@@ -2,26 +2,26 @@
 
 // STILL WORKING ON THIS
 
-function numericals(s) {
-  // create an array from the string chars and reduce through it
-  return s
-    .split('')
-    .reduce((a, c) => {
-      // if the accumulation doesn't yet have the character, add a 1 count and the char
-      if (!a.includes(c)) {
-        a.push(1, c);
-        // otherwise get the existing count, add it +1, and then add the char to the accumulation
-      } else {
-        const newCount =
-          a.filter((i) => i == c && !Number.isInteger(i)).length + 1;
-        a.push(newCount, c);
-      }
-      return a;
-      // filter out all but the "counts" and join as a string
-    }, [])
-    .filter((i) => Number.isInteger(i))
-    .join('');
-}
+// function numericals(s) {
+//   // create an array from the string chars and reduce through it
+//   return s
+//     .split('')
+//     .reduce((a, c) => {
+//       // if the accumulation doesn't yet have the character, add a 1 count and the char
+//       if (!a.includes(c)) {
+//         a.push(1, c);
+//         // otherwise get the existing count, add it +1, and then add the char to the accumulation
+//       } else {
+//         const newCount =
+//           a.filter((i) => i == c && !Number.isInteger(i)).length + 1;
+//         a.push(newCount, c);
+//       }
+//       return a;
+//       // filter out all but the "counts" and join as a string
+//     }, [])
+//     .filter((i) => Number.isInteger(i))
+//     .join('');
+// }
 
 //---------------Code Wars Too Many Cats----------------------------
 
@@ -2798,15 +2798,15 @@ following properties. name, email, password, username.*/
 // Codewars - "Clean Nesting Tree"
 
 // const isCleanlyNested = (tree) => {
-//   const checkNode = (node) => {      
+//   const checkNode = (node) => {
 //     if (node.every(n => n.length === 0)) return true;
-  
+
 //     if (node.every(n => n.length > 0)) {
 //       if (node.every(n => checkNode(n))) return true;
 //     }
-  
+
 //     return false;
 // }
-  
+
 //   return checkNode(tree);
 // }
