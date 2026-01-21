@@ -8,26 +8,34 @@ A collection of toy problems, coding challenges, and syntax examples across mult
 | -------------- | ---------- | ----------------------------------------------------------------- |
 | `sandbox.ts`   | TypeScript | Algorithm practice with inline Jest tests                         |
 | `sandbox.js`   | JavaScript | CodeWars solutions, algorithm practice, array/string manipulation |
-| `sandbox.py`   | Python     | Syntax examples, function patterns, CodeWars solutions            |
+| `sandbox.py`   | Python     | Syntax examples, inline pytest tests, learning exercises          |
 | `sandbox.java` | Java       | HackerRank solutions, sorting, data structures                    |
 
 ## Getting Started
 
 ```bash
-# Install dependencies
+# Install JS/TS dependencies
 npm install
 
-# Run tests
-npm test
+# Install Python dependencies
+pip install -r requirements.txt
+```
 
-# Run tests in watch mode
-npm run test:watch
+### TypeScript/JavaScript
 
-# Run linting
-npm run lint
+```bash
+npm test            # Run Jest tests
+npm run test:watch  # Watch mode
+npm run lint        # ESLint
+npm run format      # Prettier
+```
 
-# Format code
-npm run format
+### Python
+
+```bash
+npm run test:py     # Run pytest
+npm run format:py   # Black formatter
+npm run lint:py     # flake8 linter
 ```
 
 ## Problem Sources

@@ -7,10 +7,13 @@
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
+    "test:py": "python3 -m pytest sandbox.py -v",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"**/*.{js,ts,json,md}\"",
-    "format:check": "prettier --check \"**/*.{js,ts,json,md}\""
+    "format:check": "prettier --check \"**/*.{js,ts,json,md}\"",
+    "format:py": "python3 -m black sandbox.py",
+    "lint:py": "python3 -m flake8 sandbox.py"
   },
   "devDependencies": {
     "@eslint/js": "^9.0.0",
