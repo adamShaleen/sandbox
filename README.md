@@ -4,12 +4,12 @@ A collection of toy problems, coding challenges, and syntax examples across mult
 
 ## Contents
 
-| File           | Language   | Description                                                       |
+| Folder         | Language   | Description                                                       |
 | -------------- | ---------- | ----------------------------------------------------------------- |
-| `sandbox.ts`   | TypeScript | Algorithm practice with inline Jest tests                         |
-| `sandbox.js`   | JavaScript | CodeWars solutions, algorithm practice, array/string manipulation |
-| `sandbox.py`   | Python     | Syntax examples, inline pytest tests, learning exercises          |
-| `sandbox.java` | Java       | HackerRank solutions, sorting, data structures                    |
+| `typescript/`  | TypeScript | Algorithm practice with inline Jest tests                         |
+| `javascript/`  | JavaScript | CodeWars solutions, algorithm practice, array/string manipulation |
+| `python/`      | Python     | Phased learning exercises with inline pytest tests                |
+| `java/`        | Java       | HackerRank solutions, sorting, data structures                    |
 
 ## Getting Started
 
@@ -18,7 +18,7 @@ A collection of toy problems, coding challenges, and syntax examples across mult
 npm install
 
 # Install Python dependencies
-pip install -r requirements.txt
+pip install -r python/requirements.txt
 ```
 
 ### TypeScript/JavaScript

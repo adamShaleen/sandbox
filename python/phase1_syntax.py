@@ -3,6 +3,34 @@
 # ============================================================================
 
 # -----------------------------------------------------------------------------
+# WHAT IS "PYTHONIC"?
+# -----------------------------------------------------------------------------
+# "Pythonic" = code that follows Python's idioms, not just code that works.
+# Python has a "preferred way" to do things — readable, simple, using built-ins.
+#
+# Examples:
+#   NOT Pythonic                      Pythonic
+#   --------------------------------  --------------------------------
+#   if len(my_list) > 0:              if my_list:  # truthy check
+#
+#   result = []                       result = [x * 2 for x in items]
+#   for i in range(len(items)):       # list comprehension
+#       result.append(items[i] * 2)
+#
+#   if x >= 0 and x <= 10:            if 0 <= x <= 10:  # chained comparison
+#
+# The Zen of Python (run `import this`):
+#   - "Beautiful is better than ugly"
+#   - "Simple is better than complex"
+#   - "Readability counts"
+#
+# Key style conventions:
+#   - snake_case for variables/functions (not camelCase)
+#   - 4-space indentation
+#   - Use built-in functions and comprehensions over manual loops
+# -----------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
 # 1. VARIABLES & TYPES
 # -----------------------------------------------------------------------------
 # JS:  const name = "Alice"   let age = 30
@@ -360,3 +388,103 @@ def test_group_by_first_letter():
         "c": ["cat", "car"],
         "d": ["dog", "deer"],
     }
+
+
+# -----------------------------------------------------------------------------
+# PRACTICE: Find Duplicates
+# -----------------------------------------------------------------------------
+# Given a list, return a new list containing only the items that appear
+# more than once. Result should be in order of first duplicate occurrence,
+# with no duplicates in the result itself.
+#
+# Hints:
+# - Track counts with a dict, OR use list.count()
+# - Track what you've already added to avoid duplicates in result
+# - `in` operator checks membership: `if item in some_list:`
+#
+# JS equivalent:
+# function findDuplicates(items) {
+#   const counts = {};
+#   items.forEach(item => counts[item] = (counts[item] || 0) + 1);
+#   const seen = new Set();
+#   return items.filter(item => {
+#     if (counts[item] > 1 && !seen.has(item)) {
+#       seen.add(item);
+#       return true;
+#     }
+#     return false;
+#   });
+# }
+
+
+def find_duplicates(items: list) -> list:
+    count_map = {}
+    for item in items:
+        count_map[item] = count_map.get(item, 0) + 1
+
+    return [key for key, value in count_map.items() if value > 1]
+
+
+def test_find_duplicates():
+    assert find_duplicates([]) == []
+    assert find_duplicates([1, 2, 3]) == []  # no duplicates
+    assert find_duplicates([1, 1]) == [1]
+    assert find_duplicates([1, 2, 1]) == [1]
+    assert find_duplicates([1, 2, 2, 3, 1]) == [1, 2]  # order of first occurrence
+    assert find_duplicates(["a", "b", "a", "c", "b"]) == ["a", "b"]
+    assert find_duplicates([1, 1, 1, 1]) == [1]  # only once in result
+
+
+# -----------------------------------------------------------------------------
+# PRACTICE: Validate Brackets
+# -----------------------------------------------------------------------------
+# Given a string containing brackets, check if all brackets are balanced.
+# Only consider: (), [], {}
+# Ignore all other characters.
+#
+# Hints:
+# - Use a list as a stack: append() to push, pop() to remove last
+# - Track opening brackets, match with closing
+# - Each closing bracket must match the most recent opening bracket
+#
+# JS equivalent:
+# function validateBrackets(str) {
+#   const pairs = { ')': '(', ']': '[', '}': '{' };
+#   const stack = [];
+#   for (const char of str) {
+#     if ('([{'.includes(char)) stack.push(char);
+#     else if (')]}'. includes(char)) {
+#       if (stack.pop() !== pairs[char]) return false;
+#     }
+#   }
+#   return stack.length === 0;
+# }
+
+
+def validate_brackets(text: str) -> bool:
+    pairs = {"}": "{", ")": "(", "]": "["}
+    stack = []
+
+    for char in text:
+        if char in "{([":
+            stack.append(char)
+        elif char in "}])":
+            if not stack or stack.pop() != pairs[char]:
+                return False
+
+    return not stack
+
+
+def test_validate_brackets():
+    assert validate_brackets("") == True
+    assert validate_brackets("()") == True
+    assert validate_brackets("[]") == True
+    assert validate_brackets("{}") == True
+    assert validate_brackets("([])") == True
+    assert validate_brackets("{[()]}") == True
+    assert validate_brackets("hello (world)") == True  # ignores other chars
+    assert validate_brackets("(") == False  # unclosed
+    assert validate_brackets(")") == False  # no opener
+    assert validate_brackets("([)]") == False  # wrong order
+    assert validate_brackets("((())") == False  # missing closer
+    assert validate_brackets("func(arr[0], obj{})") == True

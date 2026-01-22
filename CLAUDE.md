@@ -6,10 +6,14 @@ This is a personal sandbox repository containing coding challenges, toy problems
 
 ## Project Structure
 
-- `sandbox.ts` - TypeScript solutions with inline Jest tests
-- `sandbox.js` - JavaScript solutions (CodeWars, algorithm practice)
-- `sandbox.py` - Python solutions and syntax examples
-- `sandbox.java` - Java solutions (HackerRank)
+- `typescript/` - TypeScript solutions with inline Jest tests
+- `javascript/` - JavaScript solutions (CodeWars, algorithm practice)
+- `python/` - Python learning phases with inline pytest tests
+  - `phase1_syntax.py` - Syntax bridge (JS → Python)
+  - `phase2_collections.py` - Collections & comprehensions (upcoming)
+  - `phase3_oop.py` - OOP & classes (upcoming)
+  - etc.
+- `java/` - Java solutions (HackerRank)
 
 ## Languages
 
