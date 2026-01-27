@@ -2,7 +2,7 @@
 # PHASE 3: OOP & Classes - LESSONS
 # ============================================================================
 # Python classes are similar to JS/TS classes but with some key differences.
-# Main gotchas: explicit `self`, __init__ instead of constructor, dunder methods.
+# Main gotchas: explicit `self`, __init__ instead of constructor, dunder methods (double underscore).
 
 # -----------------------------------------------------------------------------
 # 1. BASIC CLASS SYNTAX
