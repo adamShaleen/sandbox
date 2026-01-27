@@ -9,9 +9,16 @@ This is a personal sandbox repository containing coding challenges, toy problems
 - `typescript/` - TypeScript solutions with inline Jest tests
 - `javascript/` - JavaScript solutions (CodeWars, algorithm practice)
 - `python/` - Python learning phases with inline pytest tests
-  - `phase1_syntax.py` - Syntax bridge (JS → Python) ✓
-  - `phase2_collections.py` - Collections & comprehensions (in progress)
-  - Future: phase3_oop.py, phase4_functional.py, etc.
+  - `phase1/` - Syntax bridge (JS → Python) ✓
+    - `lessons.py` - Core concepts and examples
+    - `problems.py` - Practice problems
+  - `phase2/` - Collections & comprehensions ✓
+    - `lessons.py` - Core concepts and examples
+    - `problems.py` - 12 practice problems
+  - `phase3/` - OOP & Classes (in progress)
+    - `lessons.py` - Core concepts and examples
+    - `problems.py` - Practice problems
+  - Future: phase4/, phase5/, etc.
 - `java/` - Java solutions (HackerRank)
 
 ## Languages
@@ -55,9 +62,9 @@ The user is learning Python coming from a JS/TS background. A phased curriculum 
 
 ### Progress
 - [x] Phase 0: Environment Setup (pytest configured)
-- [x] Phase 1: Syntax Bridge (`python/phase1_syntax.py`)
-- [ ] Phase 2: Collections & Comprehensions (`python/phase2_collections.py`) ← CURRENT
-- [ ] Phase 3: OOP & Classes
+- [x] Phase 1: Syntax Bridge (`python/phase1/`)
+- [x] Phase 2: Collections & Comprehensions (`python/phase2/`) - 12 problems
+- [ ] Phase 3: OOP & Classes (`python/phase3/`) ← CURRENT
 - [ ] Phase 4: Functional Patterns (decorators, lambdas)
 - [ ] Phase 5: Iterators & Generators
 - [ ] Phase 6: Error Handling & Context Managers
@@ -67,11 +74,16 @@ The user is learning Python coming from a JS/TS background. A phased curriculum 
 - [ ] Phase 10: Pythonic Idioms & Capstone
 
 ### How to Resume
-1. Check the current phase file in `python/` for the last completed problem
+1. Check the current phase folder in `python/phaseN/problems.py` for the last completed problem
 2. Each problem has tests — run `npm run test:py` to verify
-3. Add new toy problems with: function stub, tests, JS equivalent hint
+3. Add new toy problems to `problems.py` with: function stub, tests, JS equivalent hint
 4. After completing a problem: review code, add comments, provide feedback
 5. Session style: 30-45 min, interactive coding with explanations
+
+### File Structure
+Each phase has two files:
+- `lessons.py` - Reference material: concept explanations, syntax comparisons, demo tests
+- `problems.py` - Practice problems with hints, solutions, and tests
 
 ### Teaching Style
 - Compare Python to JS/TS equivalents

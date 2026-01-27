@@ -1,258 +1,11 @@
 # ============================================================================
-# PHASE 2: Collections & Comprehensions
+# PHASE 2: Collections & Comprehensions - PROBLEMS
 # ============================================================================
-# Python's collection types and comprehensions are a major superpower.
-# This is where Python really shines vs JS.
+# Practice problems for Phase 2 concepts.
+# Run tests: npm run test:py -- python/phase2/problems.py
 
 # -----------------------------------------------------------------------------
-# 1. COLLECTION TYPES
-# -----------------------------------------------------------------------------
-# JS has: Array, Object, Map, Set
-# Python has: list, dict, tuple, set
-#
-#   JS              Python          Notes
-#   -----------     -----------     --------------------------------
-#   []              []              list - mutable, ordered
-#   {}              {}              dict - mutable, key-value pairs
-#   new Set()       set()           set - mutable, unique values
-#   (no equiv)      ()              tuple - IMMUTABLE list
-#
-# Tuple = like a list but can't be changed after creation
-# Use when data shouldn't change (coordinates, RGB values, etc.)
-
-my_list = [1, 2, 3]  # mutable
-my_tuple = (1, 2, 3)  # immutable - can't append/remove
-my_set = {1, 2, 3}  # unique values only
-my_dict = {"a": 1, "b": 2}  # key-value pairs
-
-
-def test_collection_types():
-    # List - mutable
-    nums = [1, 2, 3]
-    nums.append(4)
-    assert nums == [1, 2, 3, 4]
-
-    # Tuple - immutable (can't modify)
-    point = (10, 20)
-    x, y = point  # unpacking works
-    assert x == 10 and y == 20
-
-    # Set - unique values, no duplicates
-    unique = {1, 2, 2, 3, 3, 3}
-    assert unique == {1, 2, 3}
-
-    # Dict
-    person = {"name": "Alice", "age": 30}
-    assert person["name"] == "Alice"
-
-
-# -----------------------------------------------------------------------------
-# 2. LIST COMPREHENSIONS
-# -----------------------------------------------------------------------------
-# JS:  arr.map(x => x * 2)
-# Py:  [x * 2 for x in arr]
-#
-# JS:  arr.filter(x => x > 2)
-# Py:  [x for x in arr if x > 2]
-#
-# JS:  arr.filter(x => x > 2).map(x => x * 2)
-# Py:  [x * 2 for x in arr if x > 2]
-#
-# COMPREHENSION STRUCTURE - reads like an English sentence:
-# "give me [WHAT] for each [ITEM] in [SOURCE] if [CONDITION]"
-#
-# [ WHAT_TO_COLLECT   for ITEM in SOURCE   if CONDITION ]
-#         ↓                 ↓                    ↓
-#     expression         loop                 filter (optional)
-#
-# Single loop:
-#   [x * 2 for x in nums]           → "x*2 for each x in nums"
-#   [x for x in nums if x > 2]      → "x for each x in nums if x > 2"
-#
-# Nested loops (for 2D lists):
-#   [item for row in matrix for item in row]
-#          ↑ outer loop      ↑ inner loop
-#   → "item for each row in matrix, for each item in row"
-
-
-def test_list_comprehensions():
-    nums = [1, 2, 3, 4, 5]
-
-    # Map equivalent
-    doubled = [x * 2 for x in nums]
-    assert doubled == [2, 4, 6, 8, 10]
-
-    # Filter equivalent
-    evens = [x for x in nums if x % 2 == 0]
-    assert evens == [2, 4]
-
-    # Filter + Map
-    doubled_evens = [x * 2 for x in nums if x % 2 == 0]
-    assert doubled_evens == [4, 8]
-
-    # String manipulation
-    words = ["hello", "world"]
-    uppers = [w.upper() for w in words]
-    assert uppers == ["HELLO", "WORLD"]
-
-
-# -----------------------------------------------------------------------------
-# 3. DICT COMPREHENSIONS
-# -----------------------------------------------------------------------------
-# Create dicts with a similar pattern
-# Pattern: {key_expr: value_expr for item in iterable if condition}
-
-
-def test_dict_comprehensions():
-    # Create dict from list
-    words = ["apple", "banana", "cherry"]
-    lengths = {word: len(word) for word in words}
-    assert lengths == {"apple": 5, "banana": 6, "cherry": 6}
-
-    # Filter while creating
-    nums = [1, 2, 3, 4, 5]
-    even_squares = {x: x**2 for x in nums if x % 2 == 0}
-    assert even_squares == {2: 4, 4: 16}
-
-    # Swap keys and values
-    original = {"a": 1, "b": 2}
-    swapped = {v: k for k, v in original.items()}
-    assert swapped == {1: "a", 2: "b"}
-
-
-# -----------------------------------------------------------------------------
-# 4. SET COMPREHENSIONS
-# -----------------------------------------------------------------------------
-# Same pattern with curly braces (no colon = set, not dict)
-
-
-def test_set_comprehensions():
-    words = ["hello", "world", "hello"]
-    unique_lengths = {len(w) for w in words}
-    assert unique_lengths == {5}  # all words are length 5
-
-
-# -----------------------------------------------------------------------------
-# 5. SLICING
-# -----------------------------------------------------------------------------
-# JS:  arr.slice(1, 3)
-# Py:  arr[1:3]
-#
-# Syntax: arr[start:stop:step]
-# - start: inclusive (default 0)
-# - stop: exclusive (default len)
-# - step: increment (default 1)
-
-
-def test_slicing():
-    nums = [0, 1, 2, 3, 4, 5]
-
-    assert nums[1:4] == [1, 2, 3]  # index 1 to 3
-    assert nums[:3] == [0, 1, 2]  # first 3
-    assert nums[3:] == [3, 4, 5]  # from index 3 to end
-    assert nums[-2:] == [4, 5]  # last 2
-    assert nums[::2] == [0, 2, 4]  # every 2nd item
-    assert nums[::-1] == [5, 4, 3, 2, 1, 0]  # reversed!
-
-    # Works on strings too
-    text = "hello"
-    assert text[1:4] == "ell"
-    assert text[::-1] == "olleh"
-
-
-# -----------------------------------------------------------------------------
-# 6. USEFUL BUILT-INS: enumerate, zip, map, filter
-# -----------------------------------------------------------------------------
-
-
-def test_enumerate():
-    # JS: arr.forEach((item, index) => ...)
-    # Py: for index, item in enumerate(arr):
-
-    words = ["a", "b", "c"]
-    result = []
-    for i, word in enumerate(words):
-        result.append(f"{i}:{word}")
-    assert result == ["0:a", "1:b", "2:c"]
-
-    # With list comprehension
-    indexed = [f"{i}:{w}" for i, w in enumerate(words)]
-    assert indexed == ["0:a", "1:b", "2:c"]
-
-
-def test_zip():
-    # Combine multiple lists element-wise
-    names = ["Alice", "Bob"]
-    ages = [30, 25]
-
-    # JS: names.map((name, i) => ({ name, age: ages[i] }))
-    pairs = list(zip(names, ages))
-    assert pairs == [("Alice", 30), ("Bob", 25)]
-
-    # Common pattern: create dict from two lists
-    name_to_age = dict(zip(names, ages))
-    assert name_to_age == {"Alice": 30, "Bob": 25}
-
-
-def test_unpacking():
-    # Unpack into variables
-    a, b, c = [1, 2, 3]
-    assert a == 1 and b == 2 and c == 3
-
-    # Rest operator (*) - like JS spread
-    first, *rest = [1, 2, 3, 4]
-    assert first == 1
-    assert rest == [2, 3, 4]
-
-    # Works in middle too
-    first, *middle, last = [1, 2, 3, 4, 5]
-    assert first == 1
-    assert middle == [2, 3, 4]
-    assert last == 5
-
-
-# -----------------------------------------------------------------------------
-# 7. max/min/sorted WITH key=
-# -----------------------------------------------------------------------------
-# key= tells these functions HOW to compare items
-# It's a function that extracts the comparison value
-#
-# max(iterable, key=function)
-#              ↑ "compare by what?"
-#
-# lambda = inline anonymous function:
-#   lambda x: x[1]   is equivalent to   def func(x): return x[1]
-#
-# Examples:
-#   words = ["banana", "pie", "apple"]
-#
-#   max(words, key=len)              → "banana" (longest)
-#   min(words, key=len)              → "pie" (shortest)
-#   sorted(words, key=len)           → ["pie", "apple", "banana"]
-#
-#   max(words, key=lambda w: w[-1])  → "pie" (highest last letter)
-#
-# Common key functions:
-#   key=len          # by length
-#   key=str.lower    # case-insensitive
-#   key=abs          # by absolute value
-#   key=lambda x: x[1]  # by second element (for tuples/lists)
-
-
-def test_max_min_with_key():
-    words = ["banana", "pie", "apple"]
-
-    assert max(words, key=len) == "banana"
-    assert min(words, key=len) == "pie"
-    assert sorted(words, key=len) == ["pie", "apple", "banana"]
-
-    # With dict - find key with highest value
-    scores = {"alice": 85, "bob": 92, "carol": 78}
-    assert max(scores, key=lambda k: scores[k]) == "bob"
-
-
-# -----------------------------------------------------------------------------
-# PRACTICE: Matrix Transpose
+# PROBLEM 1: Matrix Transpose
 # -----------------------------------------------------------------------------
 # Given a 2D list (matrix), return its transpose.
 # Transpose = rows become columns, columns become rows.
@@ -306,7 +59,7 @@ def test_transpose():
 
 
 # -----------------------------------------------------------------------------
-# PRACTICE: Flatten and Filter
+# PROBLEM 2: Flatten and Filter
 # -----------------------------------------------------------------------------
 # Given a 2D list, flatten it to 1D and keep only values that pass a condition.
 #
@@ -346,7 +99,7 @@ def test_flatten_evens():
 
 
 # -----------------------------------------------------------------------------
-# PRACTICE: Invert Dict
+# PROBLEM 3: Invert Dict
 # -----------------------------------------------------------------------------
 # Given a dict, swap keys and values. If multiple keys have the same value,
 # collect them into a list.
@@ -419,7 +172,7 @@ def test_invert_dict():
 
 
 # -----------------------------------------------------------------------------
-# PRACTICE: Merge Sorted Lists
+# PROBLEM 4: Merge Sorted Lists
 # -----------------------------------------------------------------------------
 # Given two sorted lists, merge them into a single sorted list.
 # Do NOT use the built-in sorted() function.
@@ -477,7 +230,7 @@ def test_merge_sorted():
 
 
 # -----------------------------------------------------------------------------
-# PRACTICE: Chunk List
+# PROBLEM 5: Chunk List
 # -----------------------------------------------------------------------------
 # Split a list into chunks of a given size.
 # The last chunk may be smaller if the list doesn't divide evenly.
@@ -528,7 +281,7 @@ def test_chunk():
 
 
 # -----------------------------------------------------------------------------
-# PRACTICE: Most Frequent
+# PROBLEM 6: Most Frequent
 # -----------------------------------------------------------------------------
 # Find the most frequently occurring item in a list.
 # If there's a tie, return any one of the tied items.
@@ -577,7 +330,7 @@ def test_most_frequent():
 
 
 # -----------------------------------------------------------------------------
-# PRACTICE: Rotate List
+# PROBLEM 7: Rotate List
 # -----------------------------------------------------------------------------
 # Rotate a list by n positions. Positive n rotates right, negative rotates left.
 #
@@ -627,3 +380,330 @@ def test_rotate():
     assert rotate([1, 2, 3, 4, 5], -2) == [3, 4, 5, 1, 2]
     assert rotate([1, 2, 3], 5) == [2, 3, 1]  # n > length
     assert rotate([1, 2, 3], -5) == [3, 1, 2]  # negative n > length
+
+
+# -----------------------------------------------------------------------------
+# PROBLEM 8: Group By
+# -----------------------------------------------------------------------------
+# Group items by the result of a key function.
+# Returns a dict where keys are the function results and values are lists of items.
+#
+# Example:
+#   group_by(["apple", "banana", "apricot", "blueberry"], lambda x: x[0])
+#   → {"a": ["apple", "apricot"], "b": ["banana", "blueberry"]}
+#
+#   group_by([1, 2, 3, 4, 5, 6], lambda x: x % 2)
+#   → {1: [1, 3, 5], 0: [2, 4, 6]}
+#
+# Hints:
+# - Similar pattern to invert_dict - you're building a dict with lists
+# - Apply the key function to each item to get the grouping key
+# - setdefault() is your friend here
+#
+# JS equivalent:
+# function groupBy(arr, keyFn) {
+#   return arr.reduce((acc, item) => {
+#     const key = keyFn(item);
+#     acc[key] = acc[key] || [];
+#     acc[key].push(item);
+#     return acc;
+#   }, {});
+# }
+
+
+def group_by(items: list, key_fn) -> dict:
+    # Example: items = ["apple", "banana", "apricot"], key_fn = lambda x: x[0]
+
+    output = {}
+
+    for item in items:
+        # Step 1: apply key function to get grouping key
+        # key_fn("apple") → "a", key_fn("banana") → "b"
+        key = key_fn(item)
+
+        # Step 2: add item to the list for this key
+        # setdefault: if key missing, create empty list; return the list
+        # append: add item to that list
+        # "a" → ["apple"], then "a" → ["apple", "apricot"]
+        output.setdefault(key, []).append(item)
+
+    # Result: {"a": ["apple", "apricot"], "b": ["banana"]}
+    return output
+
+
+def test_group_by():
+    assert group_by([], lambda x: x) == {}
+    assert group_by([1], lambda x: x) == {1: [1]}
+    assert group_by([1, 2, 3, 4, 5, 6], lambda x: x % 2) == {1: [1, 3, 5], 0: [2, 4, 6]}
+    assert group_by(["apple", "banana", "apricot", "blueberry"], lambda x: x[0]) == {
+        "a": ["apple", "apricot"],
+        "b": ["banana", "blueberry"],
+    }
+    assert group_by([1, 2, 3, 4, 5], lambda x: "even" if x % 2 == 0 else "odd") == {
+        "odd": [1, 3, 5],
+        "even": [2, 4],
+    }
+    assert group_by(["cat", "dog", "elephant", "ant"], len) == {
+        3: ["cat", "dog", "ant"],
+        8: ["elephant"],
+    }
+
+
+# -----------------------------------------------------------------------------
+# PROBLEM 9: Two Sum
+# -----------------------------------------------------------------------------
+# Given a list of numbers and a target, return True if any two distinct
+# numbers in the list add up to the target.
+#
+# Example:
+#   two_sum([1, 2, 3, 4], 5) → True   (1+4 or 2+3)
+#   two_sum([1, 2, 3, 4], 10) → False (no pair sums to 10)
+#
+# Hints:
+# - Naive approach: nested loops O(n²) - works but slow
+# - Better: use a set to track numbers you've seen
+# - For each number, check if (target - number) is in the set
+# - Sets have O(1) lookup with `in` operator
+#
+# JS equivalent:
+# function twoSum(nums, target) {
+#   const seen = new Set();
+#   for (const n of nums) {
+#     if (seen.has(target - n)) return true;
+#     seen.add(n);
+#   }
+#   return false;
+# }
+
+
+def two_sum(nums: list[int], target: int) -> bool:
+    # Example: nums = [1, 2, 3, 4], target = 5
+
+    # Track numbers we've already visited
+    # Set gives O(1) lookup vs O(n) for list
+    seen = set()
+
+    for num in nums:
+        # Check if complement exists in seen numbers
+        # If target=5 and num=3, we need 2. Have we seen 2?
+        if (target - num) in seen:
+            return True
+
+        # Haven't found a pair yet; add this number to seen
+        # Order matters: check first, add second (avoids using same element twice)
+        seen.add(num)
+
+    # Checked all numbers, no pair found
+    return False
+
+
+def test_two_sum():
+    assert two_sum([], 5) is False
+    assert two_sum([5], 5) is False  # need TWO numbers
+    assert two_sum([1, 4], 5) is True
+    assert two_sum([1, 2, 3, 4], 5) is True
+    assert two_sum([1, 2, 3, 4], 10) is False
+    assert two_sum([3, 3], 6) is True  # same value twice
+    assert two_sum([1, 5, 3, 7, 9], 12) is True  # 5+7 or 3+9
+    assert two_sum([-1, 2, 3, -2], 1) is True  # -1+2 or 3+-2
+    assert two_sum([0, 0], 0) is True
+
+
+# -----------------------------------------------------------------------------
+# PROBLEM 10: Partition
+# -----------------------------------------------------------------------------
+# Split a list into two lists based on a predicate function.
+# Returns a tuple: (items where predicate is True, items where predicate is False)
+#
+# Example:
+#   partition([1, 2, 3, 4, 5], lambda x: x % 2 == 0)
+#   → ([2, 4], [1, 3, 5])
+#
+#   partition(["apple", "banana", "apricot"], lambda x: x.startswith("a"))
+#   → (["apple", "apricot"], ["banana"])
+#
+# Hints:
+# - Like filter(), but you keep BOTH sides
+# - Build two lists, check predicate for each item
+# - Return as a tuple (truthy_list, falsy_list)
+#
+# JS equivalent:
+# function partition(arr, predFn) {
+#   const truthy = [], falsy = [];
+#   for (const item of arr) {
+#     (predFn(item) ? truthy : falsy).push(item);
+#   }
+#   return [truthy, falsy];
+# }
+
+
+def partition(items: list, pred_fn) -> tuple[list, list]:
+    # Example: items = [1, 2, 3, 4, 5], pred_fn = lambda x: x % 2 == 0
+
+    # Two buckets: one for items that pass, one for items that fail
+    truthy = []
+    falsy = []
+
+    for item in items:
+        # Apply predicate to decide which bucket
+        # pred_fn(2) → True → truthy; pred_fn(3) → False → falsy
+        if pred_fn(item):
+            truthy.append(item)
+        else:
+            falsy.append(item)
+
+    # Return as tuple: (passing_items, failing_items)
+    # Result: ([2, 4], [1, 3, 5])
+    return truthy, falsy
+
+
+def test_partition():
+    assert partition([], lambda x: x) == ([], [])
+    assert partition([1], lambda x: x > 0) == ([1], [])
+    assert partition([1], lambda x: x < 0) == ([], [1])
+    assert partition([1, 2, 3, 4, 5], lambda x: x % 2 == 0) == ([2, 4], [1, 3, 5])
+    assert partition([1, 2, 3, 4, 5], lambda x: x > 3) == ([4, 5], [1, 2, 3])
+    assert partition(["apple", "banana", "apricot"], lambda x: x.startswith("a")) == (
+        ["apple", "apricot"],
+        ["banana"],
+    )
+    assert partition([0, "", None, 1, "hi"], bool) == ([1, "hi"], [0, "", None])
+
+
+# -----------------------------------------------------------------------------
+# PROBLEM 11: Anagram Groups
+# -----------------------------------------------------------------------------
+# Group words that are anagrams of each other.
+# Two words are anagrams if they contain the same letters in different order.
+# Return a list of groups (each group is a list of anagram words).
+# Order of groups and words within groups doesn't matter.
+#
+# Example:
+#   anagram_groups(["eat", "tea", "tan", "ate", "nat", "bat"])
+#   → [["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
+#
+# Hints:
+# - Anagrams have the same letters when sorted: sorted("eat") == sorted("tea")
+# - sorted() on a string returns a list of chars: sorted("cat") → ['a', 'c', 't']
+# - Use "".join() to turn list back to string: "".join(['a', 'c', 't']) → "act"
+# - This is a group_by problem: group by the sorted letters
+#
+# JS equivalent:
+# function anagramGroups(words) {
+#   const groups = {};
+#   for (const word of words) {
+#     const key = [...word].sort().join('');
+#     groups[key] = groups[key] || [];
+#     groups[key].push(word);
+#   }
+#   return Object.values(groups);
+# }
+
+
+def anagram_groups(words: list[str]) -> list[list[str]]:
+    # Example: words = ["eat", "tea", "tan", "ate", "nat", "bat"]
+
+    # Group words by their sorted letters (anagram signature)
+    grouping_dict = {}
+
+    for word in words:
+        # sorted("eat") → ['a', 'e', 't'], join → "aet"
+        # "eat", "tea", "ate" all become "aet" → same group
+        sorted_word = "".join(sorted(word))
+
+        # Same setdefault pattern: group words by their signature
+        # {"aet": ["eat", "tea", "ate"], "ant": ["tan", "nat"], "abt": ["bat"]}
+        grouping_dict.setdefault(sorted_word, []).append(word)
+
+    # Return just the groups (values), not the keys
+    # [["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
+    return list(grouping_dict.values())
+
+
+def test_anagram_groups():
+    assert anagram_groups([]) == []
+    assert anagram_groups(["cat"]) == [["cat"]]
+    assert anagram_groups(["cat", "dog"]) == [["cat"], ["dog"]]
+    assert sorted([sorted(g) for g in anagram_groups(["eat", "tea"])]) == [
+        ["eat", "tea"]
+    ]
+    assert sorted([sorted(g) for g in anagram_groups(["eat", "tea", "ate"])]) == [
+        ["ate", "eat", "tea"]
+    ]
+    result = anagram_groups(["eat", "tea", "tan", "ate", "nat", "bat"])
+    # Check we have 3 groups with correct sizes
+    assert len(result) == 3
+    sizes = sorted([len(g) for g in result])
+    assert sizes == [1, 2, 3]  # bat=1, tan/nat=2, eat/tea/ate=3
+
+
+# -----------------------------------------------------------------------------
+# PROBLEM 12: Run-Length Encoding
+# -----------------------------------------------------------------------------
+# Compress a list by counting consecutive repeated items.
+# Return a list of tuples: (item, count)
+#
+# Example:
+#   run_length_encode("aaabbc") → [("a", 3), ("b", 2), ("c", 1)]
+#   run_length_encode([1, 1, 2, 2, 2, 3]) → [(1, 2), (2, 3), (3, 1)]
+#
+# Hints:
+# - Track the current item and its count
+# - When item changes, save the (item, count) tuple and reset
+# - Don't forget the last group after the loop ends
+# - Handle empty input
+#
+# JS equivalent:
+# function runLengthEncode(items) {
+#   if (!items.length) return [];
+#   const result = [];
+#   let current = items[0], count = 1;
+#   for (let i = 1; i < items.length; i++) {
+#     if (items[i] === current) count++;
+#     else { result.push([current, count]); current = items[i]; count = 1; }
+#   }
+#   result.push([current, count]);
+#   return result;
+# }
+
+
+def run_length_encode(items) -> list[tuple]:
+    # Example: items = "aabbbaa"
+
+    if not items:
+        return []
+
+    output = []
+    current_item = items[0]  # start tracking first item
+    count = 0  # will be incremented on first iteration
+
+    for item in items:
+        if current_item == item:
+            # same item as we're tracking, increment count
+            # 'a' == 'a' → count becomes 1, then 2
+            count += 1
+        else:
+            # item changed! save the completed group, start new one
+            # 'a' != 'b' → save ('a', 2), start counting 'b'
+            output.append((current_item, count))
+            count = 1  # new item already seen once
+            current_item = item
+
+    # don't forget the last group (loop ends without saving it)
+    # after loop: current_item='a', count=2 → append ('a', 2)
+    output.append((current_item, count))
+
+    # Result: [('a', 2), ('b', 3), ('a', 2)]
+    return output
+
+
+def test_run_length_encode():
+    assert run_length_encode("") == []
+    assert run_length_encode([]) == []
+    assert run_length_encode("a") == [("a", 1)]
+    assert run_length_encode("aaa") == [("a", 3)]
+    assert run_length_encode("abc") == [("a", 1), ("b", 1), ("c", 1)]
+    assert run_length_encode("aaabbc") == [("a", 3), ("b", 2), ("c", 1)]
+    assert run_length_encode("aabbbaa") == [("a", 2), ("b", 3), ("a", 2)]
+    assert run_length_encode([1, 1, 2, 2, 2, 3]) == [(1, 2), (2, 3), (3, 1)]
+    assert run_length_encode([True, True, False]) == [(True, 2), (False, 1)]
