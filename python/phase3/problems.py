@@ -539,3 +539,376 @@ def test_playlist():
         repr(p)
         == "Playlist(name='Road Trip', songs=['Bohemian Rhapsody', 'Hotel California', 'Stairway to Heaven'])"
     )
+
+
+# -----------------------------------------------------------------------------
+# PROBLEM 7: Dice (staticmethod + __str__ vs __repr__)
+# -----------------------------------------------------------------------------
+# Create a Dice class that models rolling dice:
+#
+# - __init__ takes sides (int, default 6)
+#   - raise ValueError if sides < 2
+# - sides property (read-only)
+# - roll() method - returns random int from 1 to sides (inclusive)
+# - roll_multiple(n) method - returns list of n rolls
+# - probability(target) staticmethod - returns 1/target as a float
+#   (probability of rolling a specific number on a target-sided die)
+# - __repr__ returns "Dice(sides=...)"            <- for devs
+# - __str__ returns "d..." (e.g. "d6", "d20")     <- for users
+#
+# KEY CONCEPT: __str__ vs __repr__
+# - __repr__ = developer-facing, unambiguous, ideally eval()-able
+# - __str__  = user-facing, readable, used by print() and str()
+# - print(obj) calls __str__, falling back to __repr__
+# - repr(obj) always calls __repr__
+# - f"{obj}" calls __str__
+#
+# JS equivalent: toString() is like __str__. Python splits this into two.
+#
+# Hints:
+# - import random, use random.randint(1, self._sides)
+# - @staticmethod doesn't take self or cls — it's just a function
+#   that lives on the class for organizational purposes
+# - Think of staticmethod like a JS static method: Dice.probability(6)
+#
+
+import random
+
+
+class Dice:
+    def __init__(self, sides: int = 6):
+        if sides < 2:
+            raise ValueError("Oh noes!")
+
+        self._sides = sides
+
+    @property
+    def sides(self) -> int:
+        return self._sides
+
+    def roll(self) -> int:
+        return random.randint(1, self._sides)
+
+    def roll_multiple(self, num_of_rolls: int) -> list[int]:
+        return [self.roll() for _ in range(num_of_rolls)]
+
+    @staticmethod
+    def probability(target: int) -> float:
+        return 1 / target
+
+    def __repr__(self):
+        return f"Dice(sides={self._sides})"
+
+    def __str__(self):
+        return f"d{self._sides}"
+
+
+def test_dice():
+    # Basic creation
+    d6 = Dice()
+    assert d6.sides == 6
+
+    d20 = Dice(20)
+    assert d20.sides == 20
+
+    # Validation
+    try:
+        Dice(1)
+        assert False, "Should raise ValueError"
+    except ValueError:
+        pass
+
+    # Roll returns value in range
+    for _ in range(100):
+        val = d6.roll()
+        assert 1 <= val <= 6
+
+    for _ in range(100):
+        val = d20.roll()
+        assert 1 <= val <= 20
+
+    # Roll multiple
+    rolls = d6.roll_multiple(5)
+    assert len(rolls) == 5
+    assert all(1 <= r <= 6 for r in rolls)
+
+    # Static method (no instance needed)
+    assert Dice.probability(6) == 1 / 6
+    assert Dice.probability(20) == 1 / 20
+    # Can also call on instance
+    assert d6.probability(6) == 1 / 6
+
+    # __repr__ vs __str__
+    assert repr(d6) == "Dice(sides=6)"
+    assert str(d6) == "d6"
+    assert repr(d20) == "Dice(sides=20)"
+    assert str(d20) == "d20"
+
+    # f-string uses __str__
+    assert f"Rolling a {d20}" == "Rolling a d20"
+
+
+# -----------------------------------------------------------------------------
+# PROBLEM 8: Product (dataclasses)
+# -----------------------------------------------------------------------------
+# Rewrite a typical "data holder" class using @dataclass.
+#
+# Without dataclass, you'd write __init__, __repr__, __eq__ manually
+# (like you've been doing). @dataclass auto-generates all of that.
+#
+# Create a Product dataclass with:
+# - name: str
+# - price: float
+# - quantity: int = 0          (default value)
+# - total_value property       (price * quantity)
+# - apply_discount(pct) method (returns NEW Product with discounted price)
+#
+# Also create an Inventory dataclass with:
+# - products: list[Product]    (use field(default_factory=list))
+# - add(product) method
+# - total_value property       (sum of all product total_values)
+# - most_expensive property    (product with highest price)
+#
+# KEY CONCEPT: @dataclass
+# - Auto-generates __init__, __repr__, __eq__ from field declarations
+# - Fields are declared as class-level type annotations
+# - Default values work like function defaults
+# - For mutable defaults (list, dict), use field(default_factory=list)
+# - You can still add methods, properties, and custom dunders
+#
+# JS equivalent: like defining a TS interface + constructor in one shot.
+# Similar vibe to a Record type or a plain object with guaranteed shape.
+#
+# Hints:
+# - from dataclasses import dataclass, field
+# - @dataclass goes above the class definition
+# - Fields with defaults must come AFTER fields without defaults
+# - field(default_factory=list) avoids the mutable default gotcha
+#   (same issue as def foo(items=[]) in plain Python)
+# - apply_discount should return Product(self.name, new_price, self.quantity)
+#
+
+from dataclasses import dataclass, field
+
+
+@dataclass
+class Product:
+    name: str
+    price: float
+    quantity: int = 0
+
+    @property
+    def total_value(self) -> float:
+        return self.price * self.quantity
+
+    def apply_discount(self, pct: float) -> "Product":
+        discounted_price = self.price - (self.price * pct / 100)
+        return Product(self.name, discounted_price, self.quantity)
+
+
+@dataclass
+class Inventory:
+    products: list[Product] = field(default_factory=list)
+
+    def add(self, product: Product):
+        self.products.append(product)
+
+    @property
+    def total_value(self) -> float:
+        return sum(product.total_value for product in self.products)
+
+    @property
+    def most_expensive(self) -> "Product":
+        return max(self.products, key=lambda p: p.price)
+
+
+def test_product():
+    # Auto-generated __init__
+    p1 = Product("Widget", 9.99, 5)
+    assert p1.name == "Widget"
+    assert p1.price == 9.99
+    assert p1.quantity == 5
+
+    # Default value
+    p2 = Product("Gadget", 19.99)
+    assert p2.quantity == 0
+
+    # Auto-generated __repr__
+    assert repr(p2) == "Product(name='Gadget', price=19.99, quantity=0)"
+
+    # Auto-generated __eq__ (compares all fields)
+    p3 = Product("Widget", 9.99, 5)
+    assert p1 == p3
+    assert p1 != p2
+
+    # Custom property
+    assert p1.total_value == 9.99 * 5
+    assert p2.total_value == 0
+
+    # Custom method
+    p4 = p1.apply_discount(10)  # 10% off
+    assert p4.price == 8.991  # 9.99 * 0.9
+    assert p4.name == "Widget"
+    assert p4.quantity == 5
+    assert p1.price == 9.99  # original unchanged
+
+
+def test_inventory():
+    inv = Inventory()
+    assert inv.products == []
+
+    p1 = Product("Widget", 9.99, 5)
+    p2 = Product("Gadget", 19.99, 3)
+    p3 = Product("Doohickey", 4.99, 10)
+
+    inv.add(p1)
+    inv.add(p2)
+    inv.add(p3)
+
+    assert len(inv.products) == 3
+
+    # total_value sums all products
+    expected = (9.99 * 5) + (19.99 * 3) + (4.99 * 10)
+    assert inv.total_value == expected
+
+    # most_expensive by price
+    assert inv.most_expensive == p2
+
+    # Two separate inventories don't share products (default_factory)
+    inv2 = Inventory()
+    assert inv2.products == []
+    assert len(inv.products) == 3  # original unaffected
+
+
+# -----------------------------------------------------------------------------
+# PROBLEM 9: Shape hierarchy (Abstract Base Classes)
+# -----------------------------------------------------------------------------
+# Create an abstract Shape base class and concrete subclasses.
+#
+# Shape (abstract):
+# - area() abstract method — must be implemented by subclasses
+# - perimeter() abstract method — must be implemented by subclasses
+# - describe() concrete method — returns "{class_name}: area={area}, perimeter={perimeter}"
+#   (round both to 2 decimal places using round())
+#
+# Circle(Shape):
+# - __init__ takes radius (float)
+# - area = pi * r^2
+# - perimeter = 2 * pi * r
+#
+# Triangle(Shape):
+# - __init__ takes a, b, c (three side lengths as floats)
+# - perimeter = a + b + c
+# - area uses Heron's formula:
+#     s = perimeter / 2
+#     area = sqrt(s * (s-a) * (s-b) * (s-c))
+#
+# KEY CONCEPT: Abstract Base Classes (ABCs)
+# - Like TypeScript interfaces, but enforced at instantiation time
+# - If you forget to implement an abstract method, Python raises TypeError
+#   when you try to create an instance (not at class definition)
+# - from abc import ABC, abstractmethod
+# - class Shape(ABC): makes Shape abstract
+# - @abstractmethod marks methods subclasses MUST implement
+# - Abstract classes CAN have concrete methods (describe() here)
+#
+# TS equivalent:
+#   abstract class Shape {
+#     abstract area(): number;
+#     abstract perimeter(): number;
+#     describe(): string { ... }  // concrete method on abstract class
+#   }
+#
+# Hints:
+# - import math for math.pi and math.sqrt
+# - type(self).__name__ gets the class name as a string
+# - describe() calls self.area() and self.perimeter() — polymorphism!
+#   The base class method calls methods that don't exist on itself,
+#   trusting subclasses to provide them
+#
+
+from abc import ABC, abstractmethod
+import math
+
+
+class Shape(ABC):
+    @abstractmethod
+    def area(self):
+        pass
+
+    @abstractmethod
+    def perimeter(self):
+        pass
+
+    def describe(self):
+        return f"{type(self).__name__}: area={round(self.area(), 2)}, perimeter={round(self.perimeter(), 2)}"
+
+
+class Circle(Shape):
+    def __init__(self, radius):
+        self._radius = radius
+
+    def area(self) -> float:
+        return math.pi * (self._radius**2)
+
+    def perimeter(self) -> float:
+        return 2 * math.pi * self._radius
+
+
+class Triangle(Shape):
+    def __init__(self, a: float, b: float, c: float):
+        self._a = a
+        self._b = b
+        self._c = c
+
+    def perimeter(self) -> float:
+        return self._a + self._b + self._c
+
+    def area(self) -> float:
+        s = self.perimeter() / 2
+        return math.sqrt(s * (s - self._a) * (s - self._b) * (s - self._c))
+
+
+def test_shape_abstract():
+    # Can't instantiate abstract class
+    try:
+        Shape()
+        assert False, "Should raise TypeError"
+    except TypeError:
+        pass
+
+
+def test_circle():
+    c = Circle(5)
+    assert round(c.area(), 2) == 78.54
+    assert round(c.perimeter(), 2) == 31.42
+    assert c.describe() == "Circle: area=78.54, perimeter=31.42"
+    assert isinstance(c, Shape)
+
+
+def test_triangle():
+    # 3-4-5 right triangle
+    t = Triangle(3, 4, 5)
+    assert t.area() == 6.0
+    assert t.perimeter() == 12
+    assert t.describe() == "Triangle: area=6.0, perimeter=12"
+    assert isinstance(t, Shape)
+
+    # Equilateral triangle (side=10)
+    eq = Triangle(10, 10, 10)
+    assert round(eq.area(), 2) == 43.3
+    assert eq.perimeter() == 30
+
+
+def test_polymorphism():
+    # Different shapes, same interface
+    shapes = [Circle(5), Triangle(3, 4, 5)]
+    areas = [round(s.area(), 2) for s in shapes]
+    assert areas == [78.54, 6.0]
+
+    # describe() works on all shapes — polymorphism via ABC
+    descriptions = [s.describe() for s in shapes]
+    assert descriptions == [
+        "Circle: area=78.54, perimeter=31.42",
+        "Triangle: area=6.0, perimeter=12",
+    ]
