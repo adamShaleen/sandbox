@@ -912,3 +912,190 @@ def test_polymorphism():
         "Circle: area=78.54, perimeter=31.42",
         "Triangle: area=6.0, perimeter=12",
     ]
+
+
+# -----------------------------------------------------------------------------
+# PROBLEM 10: Engine & Car (Composition)
+# -----------------------------------------------------------------------------
+# Demonstrate "has-a" relationships using composition instead of inheritance.
+#
+# Engine class:
+# - __init__ takes horsepower (int) and fuel_type (str, e.g. "gasoline", "diesel")
+# - horsepower and fuel_type properties (read-only)
+# - start() method returns "Engine started" and sets is_running to True
+# - stop() method returns "Engine stopped" and sets is_running to False
+# - is_running property (read-only, starts False)
+# - __repr__ returns "Engine(horsepower=..., fuel_type='...')"
+#
+# Car class:
+# - __init__ takes make (str), model (str), and engine (Engine instance)
+# - make, model, engine properties (read-only)
+# - start() method - calls engine.start(), returns "Car started"
+#   - if engine already running, return "Engine already running"
+# - stop() method - calls engine.stop(), returns "Car stopped"
+#   - if engine not running, return "Engine not running"
+# - honk() method returns "Beep beep!"
+# - describe() returns "{make} {model} with {horsepower}hp {fuel_type} engine"
+# - __repr__ returns "Car(make='...', model='...', engine=...)"
+#
+# KEY CONCEPT: Composition vs Inheritance
+# - Inheritance = "is-a" (Employee IS-A Person)
+# - Composition = "has-a" (Car HAS-AN Engine)
+# - Favor composition when objects have different lifecycles or can be swapped
+# - Engine could be replaced; Car delegates to Engine rather than being one
+#
+# JS equivalent: In JS you'd store engine as a property and call this.engine.start()
+# Same pattern, just more formalized in OOP terminology.
+#
+# Hints:
+# - Car doesn't inherit from Engine — it CONTAINS an Engine
+# - Car.start() delegates to self._engine.start()
+# - describe() accesses engine properties via self._engine.horsepower etc.
+#
+
+
+class Engine:
+    def __init__(self, horsepower: int, fuel_type: str):
+        self._horsepower = horsepower
+        self._fuel_type = fuel_type
+        self._is_running = False
+
+    @property
+    def horsepower(self) -> int:
+        return self._horsepower
+
+    @property
+    def fuel_type(self) -> str:
+        return self._fuel_type
+
+    @property
+    def is_running(self) -> bool:
+        return self._is_running
+
+    @is_running.setter
+    def is_running(self, value: bool):
+        self._is_running = value
+
+    def start(self) -> str:
+        self.is_running = True
+        return f"Engine started"
+
+    def stop(self) -> str:
+        self.is_running = False
+        return f"Engine stopped"
+
+    def __repr__(self) -> str:
+        return f"Engine(horsepower={self._horsepower}, fuel_type='{self.fuel_type}')"
+
+
+class Car:
+    def __init__(self, make: str, model: str, engine: Engine):
+        self._make = make
+        self._model = model
+        self._engine = engine
+
+    @property
+    def make(self) -> str:
+        return self._make
+
+    @property
+    def model(self) -> str:
+        return self._model
+
+    @property
+    def engine(self) -> Engine:
+        return self._engine
+
+    def start(self) -> str:
+        if self._engine.is_running:
+            return "Engine already running"
+
+        self._engine.start()
+        return "Car started"
+
+    def stop(self) -> str:
+        if not self._engine.is_running:
+            return "Engine not running"
+
+        self._engine.stop()
+        return "Car stopped"
+
+    def honk(self) -> str:
+        return "Beep beep!"
+
+    def describe(self) -> str:
+        return f"{self.make} {self.model} with {self._engine.horsepower}hp {self._engine.fuel_type} engine"
+
+    def __repr__(self):
+        return f"Car(make='{self.make}', model='{self.model}', engine={self.engine})"
+
+
+def test_engine():
+    e = Engine(250, "gasoline")
+    assert e.horsepower == 250
+    assert e.fuel_type == "gasoline"
+    assert e.is_running is False
+
+    # Start
+    result = e.start()
+    assert result == "Engine started"
+    assert e.is_running is True
+
+    # Stop
+    result = e.stop()
+    assert result == "Engine stopped"
+    assert e.is_running is False
+
+    # __repr__
+    assert repr(e) == "Engine(horsepower=250, fuel_type='gasoline')"
+
+
+def test_car():
+    engine = Engine(200, "diesel")
+    car = Car("Toyota", "Hilux", engine)
+
+    assert car.make == "Toyota"
+    assert car.model == "Hilux"
+    assert car.engine is engine  # same object, not a copy
+
+    # Start delegates to engine
+    result = car.start()
+    assert result == "Car started"
+    assert engine.is_running is True
+
+    # Already running
+    result = car.start()
+    assert result == "Engine already running"
+
+    # Stop
+    result = car.stop()
+    assert result == "Car stopped"
+    assert engine.is_running is False
+
+    # Not running
+    result = car.stop()
+    assert result == "Engine not running"
+
+    # Other methods
+    assert car.honk() == "Beep beep!"
+    assert car.describe() == "Toyota Hilux with 200hp diesel engine"
+
+    # __repr__
+    assert (
+        repr(car)
+        == "Car(make='Toyota', model='Hilux', engine=Engine(horsepower=200, fuel_type='diesel'))"
+    )
+
+
+def test_composition_benefits():
+    # Same engine can be inspected independently
+    engine = Engine(300, "gasoline")
+    car = Car("Ford", "Mustang", engine)
+
+    # Engine state accessible both ways
+    car.start()
+    assert engine.is_running is True
+    assert car.engine.is_running is True
+
+    # Could theoretically swap engines (not required, just demonstrating concept)
+    # This is why composition > inheritance for this relationship

@@ -15,10 +15,13 @@ This is a personal sandbox repository containing coding challenges, toy problems
   - `phase2/` - Collections & comprehensions ✓
     - `lessons.py` - Core concepts and examples
     - `problems.py` - 12 practice problems
-  - `phase3/` - OOP & Classes (in progress)
+  - `phase3/` - OOP & Classes ✓
+    - `lessons.py` - Core concepts and examples
+    - `problems.py` - 10 practice problems
+  - `phase4/` - Functional Patterns (in progress)
     - `lessons.py` - Core concepts and examples
     - `problems.py` - Practice problems
-  - Future: phase4/, phase5/, etc.
+  - Future: phase5/, phase6/, etc.
 - `java/` - Java solutions (HackerRank)
 
 ## Languages
@@ -64,8 +67,8 @@ The user is learning Python coming from a JS/TS background. A phased curriculum 
 - [x] Phase 0: Environment Setup (pytest configured)
 - [x] Phase 1: Syntax Bridge (`python/phase1/`)
 - [x] Phase 2: Collections & Comprehensions (`python/phase2/`) - 12 problems
-- [ ] Phase 3: OOP & Classes (`python/phase3/`) ← CURRENT
-- [ ] Phase 4: Functional Patterns (decorators, lambdas)
+- [x] Phase 3: OOP & Classes (`python/phase3/`) - 10 problems
+- [ ] Phase 4: Functional Patterns (`python/phase4/`) ← CURRENT
 - [ ] Phase 5: Iterators & Generators
 - [ ] Phase 6: Error Handling & Context Managers
 - [ ] Phase 7: Modules & Packaging
