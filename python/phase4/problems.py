@@ -325,7 +325,7 @@ import time
 def throttle(min_interval):
     def decorator(func):
         last_called = 0
-        
+
         @wraps(func)
         def wrapper(*args, **kwargs):
             nonlocal last_called
@@ -383,7 +383,7 @@ def test_throttle():
 
 
 def map_with_index(func, iterable):
-    pass  # Your implementation here
+    return [func(item, i) for i, item in enumerate(iterable)]
 
 
 def test_map_with_index():
@@ -408,19 +408,21 @@ def test_map_with_index():
 # JS equivalent: Lodash's _.groupBy()
 #
 # Example:
-#   group_by(lambda x: x % 2, [1, 2, 3, 4, 5])
-#   -> {1: [1, 3, 5], 0: [2, 4]}
+#   group_by(lambda x: x % 2, [1, 2, 3, 4, 5]) -> {1: [1, 3, 5], 0: [2, 4]}
 #
 # Hints:
 # - defaultdict(list) is perfect for this
 # - Or use dict.setdefault()
 #
 
-from collections import defaultdict
-
 
 def group_by(key_func, iterable):
-    pass  # Your implementation here
+    output = dict()
+
+    for item in iterable:
+        output.setdefault(key_func(item), []).append(item)
+
+    return output
 
 
 def test_group_by():
@@ -431,7 +433,7 @@ def test_group_by():
     # Group strings by length
     words = ["cat", "dog", "elephant", "rat", "giraffe"]
     result = group_by(len, words)
-    assert result == {3: ["cat", "dog", "rat"], 8: ["elephant", "giraffe"]}
+    assert result == {3: ["cat", "dog", "rat"], 8: ["elephant"], 7: ["giraffe"]}
 
     # Group by first letter
     result = group_by(lambda s: s[0], ["apple", "apricot", "banana", "avocado"])
@@ -470,7 +472,31 @@ import inspect
 
 
 def curry(func):
-    pass  # Your implementation here
+    # How many args does the original function need? e.g., add(a,b,c) → 3
+    num_params = len(inspect.signature(func).parameters)
+
+    # helper creates a function that "remembers" previously collected args
+    def helper(accumulated_args):
+        @wraps(func)
+        # inner is what gets called each time: add(1), then (2), then (3)
+        def inner(*new_args):
+            # Combine what we had + what we just received
+            # e.g., accumulated=[1], new_args=(2,) → all_args=[1,2]
+            all_args = accumulated_args + list(new_args)
+
+            # Do we have enough args now?
+            if len(all_args) >= num_params:
+                # Yes! Call the original function with all collected args
+                return func(*all_args)
+
+            # Not enough yet — return a NEW inner that remembers all_args
+            # e.g., helper([1,2]) returns an inner waiting for the 3rd arg
+            return helper(all_args)
+
+        return inner
+
+    # Start with empty accumulator — first call to add() uses this inner
+    return helper([])
 
 
 def test_curry():
@@ -481,14 +507,14 @@ def test_curry():
     # All at once
     assert add(1, 2, 3) == 6
 
-    # One at a time
+    # # One at a time
     assert add(1)(2)(3) == 6
 
-    # Mixed
+    # # Mixed
     assert add(1, 2)(3) == 6
     assert add(1)(2, 3) == 6
 
-    # Partial application returns function
+    # # Partial application returns function
     add_one = add(1)
     assert callable(add_one)
     assert add_one(2, 3) == 6
