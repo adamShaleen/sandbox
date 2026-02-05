@@ -18,10 +18,13 @@ This is a personal sandbox repository containing coding challenges, toy problems
   - `phase3/` - OOP & Classes ✓
     - `lessons.py` - Core concepts and examples
     - `problems.py` - 10 practice problems
-  - `phase4/` - Functional Patterns (in progress)
+  - `phase4/` - Functional Patterns ✓
     - `lessons.py` - Core concepts and examples
-    - `problems.py` - Practice problems
-  - Future: phase5/, phase6/, etc.
+    - `problems.py` - 8 practice problems
+  - `phase5/` - Iterators & Generators (in progress)
+    - `lessons.py` - Core concepts and examples
+    - `problems.py` - 12 practice problems
+  - Future: phase6/, phase7/, etc.
 - `java/` - Java solutions (HackerRank)
 
 ## Languages
@@ -68,8 +71,8 @@ The user is learning Python coming from a JS/TS background. A phased curriculum 
 - [x] Phase 1: Syntax Bridge (`python/phase1/`)
 - [x] Phase 2: Collections & Comprehensions (`python/phase2/`) - 12 problems
 - [x] Phase 3: OOP & Classes (`python/phase3/`) - 10 problems
-- [ ] Phase 4: Functional Patterns (`python/phase4/`) ← CURRENT
-- [ ] Phase 5: Iterators & Generators
+- [x] Phase 4: Functional Patterns (`python/phase4/`) - 8 problems
+- [ ] Phase 5: Iterators & Generators (`python/phase5/`) ← CURRENT
 - [ ] Phase 6: Error Handling & Context Managers
 - [ ] Phase 7: Modules & Packaging
 - [ ] Phase 8: Testing (pytest advanced)
@@ -90,8 +93,9 @@ Each phase has two files:
 
 ### Teaching Style
 - Compare Python to JS/TS equivalents
-- Provide hints without giving full answers
-- After solution: review for style, performance, Pythonic patterns
+- **NEVER give complete solutions unless user explicitly asks for the answer**
+- Explain concepts, show small illustrative snippets, but let user write the actual solution
+- After user completes solution: review for style, performance, Pythonic patterns
 - Add inline comments to explain concepts
 
 Full plan details: `~/.claude/plans/parsed-zooming-wadler.md`
