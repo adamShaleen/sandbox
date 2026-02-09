@@ -7,7 +7,9 @@
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
-    "test:py": "python3 -m pytest python/ -v",
+    "test:py": "rm -rf python/*/__pycache__ python/*/*/__pycache__ && python3 -m pytest python/ -v",
+    "test:py:file": "rm -rf python/*/__pycache__ python/*/*/__pycache__ && python3 -m pytest -v",
+    "test:py:match": "rm -rf python/*/__pycache__ python/*/*/__pycache__ && python3 -m pytest python/ -v -k",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"**/*.{js,ts,json,md}\"",

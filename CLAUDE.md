@@ -21,10 +21,11 @@ This is a personal sandbox repository containing coding challenges, toy problems
   - `phase4/` - Functional Patterns ✓
     - `lessons.py` - Core concepts and examples
     - `problems.py` - 8 practice problems
-  - `phase5/` - Iterators & Generators (in progress)
+  - `phase5/` - Iterators & Generators ✓
     - `lessons.py` - Core concepts and examples
     - `problems.py` - 12 practice problems
-  - Future: phase6/, phase7/, etc.
+  - `phase6/` - Error Handling & Context Managers (in progress)
+  - Future: phase7/, phase8/, etc.
 - `java/` - Java solutions (HackerRank)
 
 ## Languages
@@ -46,7 +47,9 @@ npm test            # Run all tests
 npm run test:watch  # Run tests in watch mode
 
 # Python (pytest)
-npm run test:py     # Run Python tests
+npm run test:py                              # Run all Python tests
+npm run test:py:match <test_name>            # Run test by name (e.g., test_file_lines)
+npm run test:py:file <path>                  # Run specific file (e.g., python/phase5/problems.py)
 ```
 
 ### Linting & Formatting
@@ -72,8 +75,8 @@ The user is learning Python coming from a JS/TS background. A phased curriculum 
 - [x] Phase 2: Collections & Comprehensions (`python/phase2/`) - 12 problems
 - [x] Phase 3: OOP & Classes (`python/phase3/`) - 10 problems
 - [x] Phase 4: Functional Patterns (`python/phase4/`) - 8 problems
-- [ ] Phase 5: Iterators & Generators (`python/phase5/`) ← CURRENT
-- [ ] Phase 6: Error Handling & Context Managers
+- [x] Phase 5: Iterators & Generators (`python/phase5/`) - 12 problems
+- [ ] Phase 6: Error Handling & Context Managers ← CURRENT
 - [ ] Phase 7: Modules & Packaging
 - [ ] Phase 8: Testing (pytest advanced)
 - [ ] Phase 9: Type System Deep Dive
@@ -87,9 +90,12 @@ The user is learning Python coming from a JS/TS background. A phased curriculum 
 5. Session style: 30-45 min, interactive coding with explanations
 
 ### File Structure
-Each phase has two files:
+Each phase has three files:
+- `__init__.py` - Empty file, required for pytest module resolution
 - `lessons.py` - Reference material: concept explanations, syntax comparisons, demo tests
 - `problems.py` - Practice problems with hints, solutions, and tests
+
+**Important:** New phase folders MUST include an empty `__init__.py` file or pytest will fail with module import errors.
 
 ### Teaching Style
 - Compare Python to JS/TS equivalents

@@ -36,6 +36,7 @@ def range_gen(start, stop, step=1):
             yield current
             current += step
 
+
 def test_range_gen():
     # Basic usage
     assert list(range_gen(0, 5)) == [0, 1, 2, 3, 4]
@@ -86,6 +87,7 @@ def take(n, iterable):
             return
         yield item
 
+
 def test_take():
     # Basic usage
     assert list(take(3, [1, 2, 3, 4, 5])) == [1, 2, 3]
@@ -128,6 +130,7 @@ def drop(n, iterable):
         if index >= n:
             yield item
 
+
 def test_drop():
     # Basic usage
     assert list(drop(2, [1, 2, 3, 4, 5])) == [3, 4, 5]
@@ -160,17 +163,19 @@ def test_drop():
 # - Don't forget the last chunk if it's not full!
 #
 
+
 def chunks(iterable, size):
     current_chunk = []
 
     for item in iterable:
-        current_chunk.append(item)  
+        current_chunk.append(item)
         if len(current_chunk) == size:
             yield current_chunk
             current_chunk = []
-    
+
     if current_chunk:
         yield current_chunk
+
 
 def test_chunks():
     # Even split
@@ -211,6 +216,7 @@ def flatten_gen(nested):
     for inner in nested:
         yield from inner
 
+
 def test_flatten_gen():
     # Basic flattening
     assert list(flatten_gen([[1, 2], [3, 4], [5]])) == [1, 2, 3, 4, 5]
@@ -245,6 +251,7 @@ def test_flatten_gen():
 
 from collections import deque
 
+
 def window(iterable, size):
     sliding_window = deque(maxlen=size)
 
@@ -252,6 +259,7 @@ def window(iterable, size):
         sliding_window.append(item)
         if len(sliding_window) == size:
             yield tuple(sliding_window)
+
 
 def test_window():
     # Basic window
@@ -291,7 +299,12 @@ def test_window():
 
 
 def unique_gen(iterable):
-    pass  # YOUR CODE HERE
+    seen = set()
+
+    for item in iterable:
+        if item not in seen:
+            yield item
+            seen.add(item)
 
 
 def test_unique_gen():
@@ -332,7 +345,10 @@ def test_unique_gen():
 
 
 def interleave(*iterables):
-    pass  # YOUR CODE HERE
+    for tuple in zip(
+        *iterables
+    ):  # A zip object yielding tuples until an input is exhausted.
+        yield from tuple
 
 
 def test_interleave():
@@ -371,7 +387,10 @@ def test_interleave():
 
 
 def cycle_n(iterable, n):
-    pass  # YOUR CODE HERE
+    items = list(iterable)
+
+    for _ in range(n):
+        yield from items
 
 
 def test_cycle_n():
@@ -412,13 +431,19 @@ def test_cycle_n():
 
 class Counter:
     def __init__(self, start=0, step=1, limit=None):
-        pass  # YOUR CODE HERE
+        self.current = start
+        self.step = step
+        self.limit = limit
 
     def __iter__(self):
-        pass  # YOUR CODE HERE
+        return self
 
     def __next__(self):
-        pass  # YOUR CODE HERE
+        if self.limit and self.current >= self.limit:
+            raise StopIteration
+        value = self.current
+        self.current += self.step
+        return value
 
 
 def test_counter():
@@ -462,7 +487,9 @@ def test_counter():
 
 
 def file_lines(filepath):
-    pass  # YOUR CODE HERE
+    with open(filepath) as lines: # with ensures the file closes when the generator exhausts or is garbage collected
+        for line in lines:
+            yield line.strip()
 
 
 def test_file_lines(tmp_path):
@@ -496,9 +523,10 @@ def test_file_lines(tmp_path):
 
 
 def batch_processor(items, batch_size, process_fn):
-    pass  # YOUR CODE HERE
+    for chunk in chunks(items, batch_size):
+        yield process_fn(chunk)
 
-
+        
 def test_batch_processor():
     items = [1, 2, 3, 4, 5, 6, 7]
 
