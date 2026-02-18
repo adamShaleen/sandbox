@@ -25,6 +25,8 @@ This is a personal sandbox repository containing coding challenges, toy problems
     - `lessons.py` - Core concepts and examples
     - `problems.py` - 12 practice problems
   - `phase6/` - Error Handling & Context Managers (in progress)
+    - `lessons.py` - Core concepts and examples
+    - `problems.py` - 12 practice problems
   - Future: phase7/, phase8/, etc.
 - `java/` - Java solutions (HackerRank)
 
