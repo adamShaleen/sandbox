@@ -24,7 +24,7 @@ This is a personal sandbox repository containing coding challenges, toy problems
   - `phase5/` - Iterators & Generators ✓
     - `lessons.py` - Core concepts and examples
     - `problems.py` - 12 practice problems
-  - `phase6/` - Error Handling & Context Managers (in progress)
+  - `phase6/` - Error Handling & Context Managers ✓
     - `lessons.py` - Core concepts and examples
     - `problems.py` - 12 practice problems
   - Future: phase7/, phase8/, etc.
@@ -78,8 +78,8 @@ The user is learning Python coming from a JS/TS background. A phased curriculum 
 - [x] Phase 3: OOP & Classes (`python/phase3/`) - 10 problems
 - [x] Phase 4: Functional Patterns (`python/phase4/`) - 8 problems
 - [x] Phase 5: Iterators & Generators (`python/phase5/`) - 12 problems
-- [ ] Phase 6: Error Handling & Context Managers ← CURRENT
-- [ ] Phase 7: Modules & Packaging
+- [x] Phase 6: Error Handling & Context Managers (`python/phase6/`) - 12 problems
+- [ ] Phase 7: Modules & Packaging ← CURRENT
 - [ ] Phase 8: Testing (pytest advanced)
 - [ ] Phase 9: Type System Deep Dive
 - [ ] Phase 10: Pythonic Idioms & Capstone
