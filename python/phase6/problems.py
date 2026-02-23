@@ -4,6 +4,12 @@
 # Practice problems for Phase 6 concepts.
 # Run tests: npm run test:py -- python/phase6/problems.py
 
+from functools import wraps
+import os
+import time
+from contextlib import contextmanager
+from typing import Any, Callable, Optional
+
 
 # -----------------------------------------------------------------------------
 # PROBLEM 1: safe_divide
@@ -79,7 +85,7 @@ def test_safe_divide():
 #
 
 
-def parse_int_safe(s, default=0):
+def parse_int_safe(s, default: Optional[int] = 0):
     try:
         return int(s)
     except ValueError:
@@ -137,7 +143,8 @@ def retry(func, max_attempts=3):
             return func()
         except Exception as e:
             last_exception = e
-    raise last_exception        
+    if last_exception is not None:
+        raise last_exception
 
 
 def test_retry():
@@ -301,8 +308,6 @@ def test_indenter(capsys):
 # - Use getattr/setattr/delattr
 #
 
-from contextlib import contextmanager
-
 @contextmanager
 def temp_setattr(obj, name, value):
     has_attribute = hasattr(obj, name) 
@@ -335,7 +340,7 @@ def test_temp_setattr():
     # Temporarily add new attr
     assert not hasattr(Config, "new_attr")
     with temp_setattr(Config, "new_attr", "temp"):
-        assert Config.new_attr == "temp"
+        assert getattr(Config, "new_attr") == "temp"
     assert not hasattr(Config, "new_attr")
 
 
@@ -364,8 +369,6 @@ def test_temp_setattr():
 # - In __exit__, close file, check if exception occurred
 # - Use os.remove() to delete file on error
 #
-
-import os
 
 class FileWriter:
     def __init__(self, file_path: str):
@@ -432,31 +435,42 @@ def test_file_writer(tmp_path):
 
 
 class ErrorCollector:
-    pass  # YOUR CODE HERE
+    def __init__(self, *exception_types) -> None:
+        self.exception_types = exception_types
+        self.errors = []
 
+    def collect_errors(self, function):
+        try:
+            return function()
+        except Exception as e:
+            if isinstance(e, self.exception_types):
+                self.errors.append(e)
+                return None
+            raise
 
 def test_error_collector():
     collector = ErrorCollector(ValueError, TypeError)
 
     # Catches ValueError
-    result = collector.call(lambda: int("abc"))
+    result = collector.collect_errors(lambda: int("abc"))
     assert result is None
     assert len(collector.errors) == 1
     assert isinstance(collector.errors[0], ValueError)
 
     # Catches TypeError
-    result = collector.call(lambda: "a" + 1)
+    bad: Any = "a"
+    result = collector.collect_errors(lambda: bad + 1)
     assert result is None
     assert len(collector.errors) == 2
 
     # Returns result on success
-    result = collector.call(lambda: 42)
+    result = collector.collect_errors(lambda: 42)
     assert result == 42
     assert len(collector.errors) == 2  # No new errors
 
     # Doesn't catch other exceptions
     try:
-        collector.call(lambda: 1 / 0)
+        collector.collect_errors(lambda: 1 / 0)
         assert False, "Should have raised ZeroDivisionError"
     except ZeroDivisionError:
         pass
@@ -489,12 +503,16 @@ def test_error_collector():
 # - Use functools.wraps to preserve function metadata
 #
 
-from functools import wraps
-
-
 def ensure_cleanup(cleanup_func):
-    pass  # YOUR CODE HERE
-
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            try:
+                return func(*args, **kwargs)
+            finally:
+                cleanup_func()
+        return wrapper
+    return decorator
 
 def test_ensure_cleanup():
     log = []
@@ -540,14 +558,19 @@ def test_ensure_cleanup():
 
 
 class ConfigError(Exception):
-    pass  # YOUR CODE HERE
-
+    def __init__(self, key: str) -> None:
+        super().__init__(f"Config key not found: {key}")  
+        self.key = key
 
 CONFIG = {"database_url": "postgres://localhost", "api_key": "secret123"}
 
 
 def fetch_config(key):
-    pass  # YOUR CODE HERE
+    try:
+        return CONFIG[key]
+    
+    except KeyError as e:
+        raise ConfigError(key) from e
 
 
 def test_chained_error():
@@ -583,12 +606,22 @@ def test_chained_error():
 # - try/except/else around yield
 #
 
-import time
-
-
+@contextmanager
 def timed_block(label):
-    pass  # YOUR CODE HERE
+    start_time = time.time()
+    print(f"{label}: started")
 
+    try:
+        yield  # Pause here; the `with` block body runs while paused
+    except Exception:
+        # Only runs if the `with` block raised an exception
+        failed_time = time.time() - start_time
+        print(f"{label}: failed in {failed_time:.3f}s")
+        raise  # Re-raise so the caller still sees the exception
+    else:
+        # Only runs if NO exception occurred (skipped if except ran)
+        finish_time = time.time() - start_time
+        print(f"{label}: finished in {finish_time:.3f}s")
 
 def test_timed_block(capsys):
     # Successful block
@@ -645,8 +678,26 @@ def test_timed_block(capsys):
 
 
 class ResourcePool:
-    pass  # YOUR CODE HERE
+    def __init__(self, create_func: Callable, max_size = 5) -> None:
+        self._resources = []
+        self.create_func = create_func
+        self.max_size = max_size
 
+    @contextmanager
+    def acquire(self):
+        try:    
+            if self._resources:
+                resource = self._resources.pop()
+            else:
+                resource = self.create_func()
+        
+            yield resource
+        finally:
+            self.release(resource)
+
+    def release(self, resource: str):
+        if len(self._resources) < self.max_size:
+            self._resources.append(resource)
 
 def test_resource_pool():
     created = [0]

@@ -4,6 +4,10 @@
 # Python's error handling and resource management patterns.
 # Coming from JS/TS, you'll find similarities but also key differences.
 
+from contextlib import contextmanager, suppress, redirect_stdout
+from io import StringIO
+from typing import Any
+
 
 # -----------------------------------------------------------------------------
 # 1. BASIC TRY/EXCEPT (vs JS try/catch)
@@ -59,7 +63,8 @@ def handle_multiple(value):
             lst = []
             return lst[10]
         elif value == "type":
-            return "hello" + 5
+            x: Any = "hello"
+            return x + 5
         return "ok"
     except KeyError:
         return "missing key"
@@ -329,7 +334,7 @@ class Timer:
     """Context manager that tracks elapsed time."""
 
     def __init__(self):
-        self.elapsed = None
+        self.elapsed = 0.0
 
     def __enter__(self):
         import time
@@ -412,9 +417,6 @@ def test_suppress():
 #   3. Code AFTER `yield` runs on exit (like __exit__)
 #   4. Wrap yield in try/finally to ensure cleanup runs even on exception
 
-from contextlib import contextmanager
-
-
 @contextmanager
 def temp_change(obj, attr, value):
     """Temporarily change an attribute, restore on exit."""
@@ -458,10 +460,6 @@ def test_temp_change():
 # -----------------------------------------------------------------------------
 # 10. USEFUL CONTEXTLIB UTILITIES
 # -----------------------------------------------------------------------------
-
-from contextlib import suppress, redirect_stdout
-from io import StringIO
-
 
 def test_suppress_builtin():
     # suppress() is a built-in version of our SuppressError
