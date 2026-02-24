@@ -487,7 +487,9 @@ def test_counter():
 
 
 def file_lines(filepath):
-    with open(filepath) as lines: # with ensures the file closes when the generator exhausts or is garbage collected
+    with open(
+        filepath
+    ) as lines:  # with ensures the file closes when the generator exhausts or is garbage collected
         for line in lines:
             yield line.strip()
 
@@ -526,7 +528,7 @@ def batch_processor(items, batch_size, process_fn):
     for chunk in chunks(items, batch_size):
         yield process_fn(chunk)
 
-        
+
 def test_batch_processor():
     items = [1, 2, 3, 4, 5, 6, 7]
 

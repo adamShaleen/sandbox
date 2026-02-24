@@ -27,7 +27,10 @@ This is a personal sandbox repository containing coding challenges, toy problems
   - `phase6/` - Error Handling & Context Managers ✓
     - `lessons.py` - Core concepts and examples
     - `problems.py` - 12 practice problems
-  - Future: phase7/, phase8/, etc.
+  - `phase7/` - Modules & Packaging ✓
+    - `lessons.py` - Core concepts and examples
+    - `problems.py` - 12 practice problems
+  - Future: phase8/, etc.
 - `java/` - Java solutions (HackerRank)
 
 ## Languages
@@ -79,8 +82,8 @@ The user is learning Python coming from a JS/TS background. A phased curriculum 
 - [x] Phase 4: Functional Patterns (`python/phase4/`) - 8 problems
 - [x] Phase 5: Iterators & Generators (`python/phase5/`) - 12 problems
 - [x] Phase 6: Error Handling & Context Managers (`python/phase6/`) - 12 problems
-- [ ] Phase 7: Modules & Packaging ← CURRENT
-- [ ] Phase 8: Testing (pytest advanced)
+- [x] Phase 7: Modules & Packaging (`python/phase7/`) - 12 problems
+- [ ] Phase 8: Testing (pytest advanced) ← CURRENT
 - [ ] Phase 9: Type System Deep Dive
 - [ ] Phase 10: Pythonic Idioms & Capstone
 
@@ -105,6 +108,11 @@ Each phase has three files:
 - Explain concepts, show small illustrative snippets, but let user write the actual solution
 - After user completes solution: review for style, performance, Pythonic patterns
 - Add inline comments to explain concepts
+
+### lessons.py Code Style
+- Each `demo_` function must be immediately followed by its paired `test_` function
+- Two blank lines between every top-level function (standard PEP 8)
+- Pattern: `demo_foo` → `test_foo` → `demo_bar` → `test_bar` (never group all demos then all tests)
 
 Full plan details: `~/.claude/plans/parsed-zooming-wadler.md`
 

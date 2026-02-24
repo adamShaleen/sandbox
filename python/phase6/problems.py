@@ -34,8 +34,8 @@ from typing import Any, Callable, Optional
 
 def safe_divide(a, b):
     if any(not isinstance(x, (int, float)) for x in (a, b)):
-        raise TypeError('argument is not a number')
-    
+        raise TypeError("argument is not a number")
+
     try:
         return a / b
     except ZeroDivisionError:
@@ -201,11 +201,13 @@ class StringTooShortError(Exception):
         self.value = value
         self.min_length = min_length
 
+
 def validate_string(s, min_length=1):
     if len(s) < min_length:
         raise StringTooShortError(s, min_length)
 
     return s
+
 
 def test_validated_string():
     # Valid strings
@@ -253,8 +255,8 @@ def test_validated_string():
 
 
 class Indenter:
-    def __init__(self, indent: str, level = 0):
-        self.indent = indent  
+    def __init__(self, indent: str, level=0):
+        self.indent = indent
         self.level = level
 
     def __enter__(self):
@@ -266,6 +268,7 @@ class Indenter:
 
     def print(self, text):
         print(self.indent * self.level + text)
+
 
 def test_indenter(capsys):
     ind = Indenter(indent="  ")
@@ -308,13 +311,14 @@ def test_indenter(capsys):
 # - Use getattr/setattr/delattr
 #
 
+
 @contextmanager
 def temp_setattr(obj, name, value):
-    has_attribute = hasattr(obj, name) 
-    
+    has_attribute = hasattr(obj, name)
+
     if has_attribute:
         original_value = getattr(obj, name)
-    
+
     setattr(obj, name, value)
 
     try:
@@ -370,12 +374,13 @@ def test_temp_setattr():
 # - Use os.remove() to delete file on error
 #
 
+
 class FileWriter:
     def __init__(self, file_path: str):
         self.file_path = file_path
 
     def __enter__(self):
-        self.file = open(self.file_path, 'w')
+        self.file = open(self.file_path, "w")
         return self
 
     def __exit__(self, exc_type, _exc_val, _exc_tb):
@@ -385,6 +390,7 @@ class FileWriter:
 
     def write(self, text: str):
         self.file.write(text)
+
 
 def test_file_writer(tmp_path):
     filepath = tmp_path / "test.txt"
@@ -448,6 +454,7 @@ class ErrorCollector:
                 return None
             raise
 
+
 def test_error_collector():
     collector = ErrorCollector(ValueError, TypeError)
 
@@ -503,6 +510,7 @@ def test_error_collector():
 # - Use functools.wraps to preserve function metadata
 #
 
+
 def ensure_cleanup(cleanup_func):
     def decorator(func):
         @wraps(func)
@@ -511,8 +519,11 @@ def ensure_cleanup(cleanup_func):
                 return func(*args, **kwargs)
             finally:
                 cleanup_func()
+
         return wrapper
+
     return decorator
+
 
 def test_ensure_cleanup():
     log = []
@@ -559,8 +570,9 @@ def test_ensure_cleanup():
 
 class ConfigError(Exception):
     def __init__(self, key: str) -> None:
-        super().__init__(f"Config key not found: {key}")  
+        super().__init__(f"Config key not found: {key}")
         self.key = key
+
 
 CONFIG = {"database_url": "postgres://localhost", "api_key": "secret123"}
 
@@ -568,7 +580,7 @@ CONFIG = {"database_url": "postgres://localhost", "api_key": "secret123"}
 def fetch_config(key):
     try:
         return CONFIG[key]
-    
+
     except KeyError as e:
         raise ConfigError(key) from e
 
@@ -606,6 +618,7 @@ def test_chained_error():
 # - try/except/else around yield
 #
 
+
 @contextmanager
 def timed_block(label):
     start_time = time.time()
@@ -622,6 +635,7 @@ def timed_block(label):
         # Only runs if NO exception occurred (skipped if except ran)
         finish_time = time.time() - start_time
         print(f"{label}: finished in {finish_time:.3f}s")
+
 
 def test_timed_block(capsys):
     # Successful block
@@ -678,19 +692,19 @@ def test_timed_block(capsys):
 
 
 class ResourcePool:
-    def __init__(self, create_func: Callable, max_size = 5) -> None:
+    def __init__(self, create_func: Callable, max_size=5) -> None:
         self._resources = []
         self.create_func = create_func
         self.max_size = max_size
 
     @contextmanager
     def acquire(self):
-        try:    
+        try:
             if self._resources:
                 resource = self._resources.pop()
             else:
                 resource = self.create_func()
-        
+
             yield resource
         finally:
             self.release(resource)
@@ -698,6 +712,7 @@ class ResourcePool:
     def release(self, resource: str):
         if len(self._resources) < self.max_size:
             self._resources.append(resource)
+
 
 def test_resource_pool():
     created = [0]

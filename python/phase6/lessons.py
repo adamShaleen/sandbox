@@ -28,6 +28,7 @@ from typing import Any
 #     console.error(error.message);
 #   }
 
+
 # Python:
 def demo_basic_try():
     try:
@@ -53,6 +54,7 @@ def test_basic_try():
 
 # JS: Must check error type manually in catch block
 # Python: Separate except clauses or tuple of types
+
 
 def handle_multiple(value):
     try:
@@ -109,6 +111,7 @@ def test_grouped_exceptions():
 # else: runs if NO exception occurred (unique to Python)
 # finally: always runs (same as JS)
 
+
 def try_else_finally(should_fail):
     result = []
 
@@ -141,6 +144,7 @@ def test_else_finally():
 # -----------------------------------------------------------------------------
 # Python: raise Exception("msg")
 # JS: throw new Error("msg")
+
 
 def validate_age(age):
     # isinstance(obj, type) checks if obj is an instance of type
@@ -197,6 +201,7 @@ def log_and_reraise(func):
 #         │     └── PermissionError
 #         └── ... many more
 
+
 def test_hierarchy():
     # KeyError is a LookupError
     try:
@@ -229,6 +234,7 @@ def test_hierarchy():
 #       this.name = 'ValidationError';
 #     }
 #   }
+
 
 # Python:
 class ValidationError(Exception):
@@ -283,6 +289,7 @@ def test_custom_exceptions():
 #     fs.closeSync(file);
 #   }
 
+
 # Python (with statement handles cleanup):
 def demo_file_context():
     # File is automatically closed when block exits, even if an exception occurs!
@@ -330,6 +337,7 @@ def demo_multiple_contexts(path1, path2):
 #
 # Convention: Prefix unused params with underscore to indicate intentionally unused
 
+
 class Timer:
     """Context manager that tracks elapsed time."""
 
@@ -367,6 +375,7 @@ def test_timer_context():
 #   exc_tb: traceback (or None)
 #
 # Return True to suppress the exception, False to propagate it.
+
 
 class SuppressError:
     """Context manager that suppresses a specific exception type."""
@@ -417,6 +426,7 @@ def test_suppress():
 #   3. Code AFTER `yield` runs on exit (like __exit__)
 #   4. Wrap yield in try/finally to ensure cleanup runs even on exception
 
+
 @contextmanager
 def temp_change(obj, attr, value):
     """Temporarily change an attribute, restore on exit."""
@@ -461,6 +471,7 @@ def test_temp_change():
 # 10. USEFUL CONTEXTLIB UTILITIES
 # -----------------------------------------------------------------------------
 
+
 def test_suppress_builtin():
     # suppress() is a built-in version of our SuppressError
     with suppress(FileNotFoundError):
@@ -495,6 +506,7 @@ def test_redirect_stdout():
 # Tracebacks will show "The above exception was the direct cause of..."
 #
 # JS has no built-in equivalent (you'd manually set error.cause property).
+
 
 class DatabaseError(Exception):
     pass
@@ -547,6 +559,7 @@ def test_suppressed_chain():
 #   if (obj.hasOwnProperty('key')) {
 #     value = obj.key;
 #   }
+
 
 # Python style (EAFP):
 def get_value_eafp(d, key, default=None):
