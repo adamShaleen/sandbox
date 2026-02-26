@@ -597,9 +597,9 @@ def safe_import(module_name):
 def test_safe_import():
     success, result = safe_import("math")
     assert success is True
-    assert result.__name__ == "math" # type: ignore
+    assert result.__name__ == "math"  # type: ignore
 
     success, result = safe_import("fake_module")
     assert success is False
-    assert "fake_module" in result # type: ignore
+    assert "fake_module" in result  # type: ignore
     assert isinstance(result, str)

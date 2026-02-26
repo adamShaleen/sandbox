@@ -83,8 +83,8 @@ The user is learning Python coming from a JS/TS background. A phased curriculum 
 - [x] Phase 5: Iterators & Generators (`python/phase5/`) - 12 problems
 - [x] Phase 6: Error Handling & Context Managers (`python/phase6/`) - 12 problems
 - [x] Phase 7: Modules & Packaging (`python/phase7/`) - 12 problems
-- [ ] Phase 8: Testing (pytest advanced) ← CURRENT
-- [ ] Phase 9: Type System Deep Dive
+- [x] Phase 8: Testing (pytest advanced) (`python/phase8/`) - 10 problems
+- [ ] Phase 9: Type System Deep Dive ← CURRENT
 - [ ] Phase 10: Pythonic Idioms & Capstone
 
 ### How to Resume
@@ -108,11 +108,16 @@ Each phase has three files:
 - Explain concepts, show small illustrative snippets, but let user write the actual solution
 - After user completes solution: review for style, performance, Pythonic patterns
 - Add inline comments to explain concepts
+- **ONE concept/problem at a time** — add the next lesson concept or problem only after the user signals they're ready to move on
 
 ### lessons.py Code Style
 - Each `demo_` function must be immediately followed by its paired `test_` function
 - Two blank lines between every top-level function (standard PEP 8)
 - Pattern: `demo_foo` → `test_foo` → `demo_bar` → `test_bar` (never group all demos then all tests)
+
+### problems.py Workflow
+- Start with only Problem 1 in the file
+- Add the next problem only after the user completes the current one
 
 Full plan details: `~/.claude/plans/parsed-zooming-wadler.md`
 
