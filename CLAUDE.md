@@ -30,7 +30,10 @@ This is a personal sandbox repository containing coding challenges, toy problems
   - `phase7/` - Modules & Packaging ✓
     - `lessons.py` - Core concepts and examples
     - `problems.py` - 12 practice problems
-  - Future: phase8/, etc.
+  - `phase8/` - Testing (pytest advanced) ✓
+  - `phase9/` - Type System Deep Dive ✓
+    - `lessons.py` - Core concepts and examples
+    - `problems.py` - 8 practice problems
 - `java/` - Java solutions (HackerRank)
 
 ## Languages
@@ -75,6 +78,7 @@ npm run lint:py     # Run flake8 linter
 The user is learning Python coming from a JS/TS background. A phased curriculum is in progress.
 
 ### Progress
+
 - [x] Phase 0: Environment Setup (pytest configured)
 - [x] Phase 1: Syntax Bridge (`python/phase1/`)
 - [x] Phase 2: Collections & Comprehensions (`python/phase2/`) - 12 problems
@@ -84,10 +88,12 @@ The user is learning Python coming from a JS/TS background. A phased curriculum 
 - [x] Phase 6: Error Handling & Context Managers (`python/phase6/`) - 12 problems
 - [x] Phase 7: Modules & Packaging (`python/phase7/`) - 12 problems
 - [x] Phase 8: Testing (pytest advanced) (`python/phase8/`) - 10 problems
-- [ ] Phase 9: Type System Deep Dive ← CURRENT
-- [ ] Phase 10: Pythonic Idioms & Capstone
+- [x] Phase 9: Type System Deep Dive (`python/phase9/`) - 8 problems
+- [ ] Phase 10: Pythonic Idioms & Capstone ← CURRENT
+- [ ] Phase 11: Async Python & HTTP (`asyncio`, `httpx`, JS/TS comparison)
 
 ### How to Resume
+
 1. Check the current phase folder in `python/phaseN/problems.py` for the last completed problem
 2. Each problem has tests — run `npm run test:py` to verify
 3. Add new toy problems to `problems.py` with: function stub, tests, JS equivalent hint
@@ -95,7 +101,9 @@ The user is learning Python coming from a JS/TS background. A phased curriculum 
 5. Session style: 30-45 min, interactive coding with explanations
 
 ### File Structure
+
 Each phase has three files:
+
 - `__init__.py` - Empty file, required for pytest module resolution
 - `lessons.py` - Reference material: concept explanations, syntax comparisons, demo tests
 - `problems.py` - Practice problems with hints, solutions, and tests
@@ -103,6 +111,7 @@ Each phase has three files:
 **Important:** New phase folders MUST include an empty `__init__.py` file or pytest will fail with module import errors.
 
 ### Teaching Style
+
 - Compare Python to JS/TS equivalents
 - **NEVER give complete solutions unless user explicitly asks for the answer**
 - Explain concepts, show small illustrative snippets, but let user write the actual solution
@@ -111,11 +120,13 @@ Each phase has three files:
 - **ONE concept/problem at a time** — add the next lesson concept or problem only after the user signals they're ready to move on
 
 ### lessons.py Code Style
+
 - Each `demo_` function must be immediately followed by its paired `test_` function
 - Two blank lines between every top-level function (standard PEP 8)
 - Pattern: `demo_foo` → `test_foo` → `demo_bar` → `test_bar` (never group all demos then all tests)
 
 ### problems.py Workflow
+
 - Start with only Problem 1 in the file
 - Add the next problem only after the user completes the current one
 

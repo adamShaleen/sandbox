@@ -4,12 +4,12 @@ A collection of toy problems, coding challenges, and syntax examples across mult
 
 ## Contents
 
-| Folder         | Language   | Description                                                       |
-| -------------- | ---------- | ----------------------------------------------------------------- |
-| `typescript/`  | TypeScript | Algorithm practice with inline Jest tests                         |
-| `javascript/`  | JavaScript | CodeWars solutions, algorithm practice, array/string manipulation |
-| `python/`      | Python     | Phased learning exercises with inline pytest tests                |
-| `java/`        | Java       | HackerRank solutions, sorting, data structures                    |
+| Folder        | Language   | Description                                                       |
+| ------------- | ---------- | ----------------------------------------------------------------- |
+| `typescript/` | TypeScript | Algorithm practice with inline Jest tests                         |
+| `javascript/` | JavaScript | CodeWars solutions, algorithm practice, array/string manipulation |
+| `python/`     | Python     | Phased learning exercises with inline pytest tests                |
+| `java/`       | Java       | HackerRank solutions, sorting, data structures                    |
 
 ## Getting Started
 

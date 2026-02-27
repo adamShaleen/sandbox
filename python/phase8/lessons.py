@@ -5,7 +5,7 @@
 # Coming from JS/TS (Jest), you'll find many parallels — and some surprises.
 #
 # Concepts covered:
-#   1. Fixtures (@pytest.fixture)              ← this lesson
+#   1. Fixtures (@pytest.fixture)
 #   2. Parametrize (@pytest.mark.parametrize)
 #   3. Built-in fixtures (tmp_path, capfd)
 #   4. pytest.raises (exception testing)
