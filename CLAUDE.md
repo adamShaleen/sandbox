@@ -34,6 +34,12 @@ This is a personal sandbox repository containing coding challenges, toy problems
   - `phase9/` - Type System Deep Dive ✓
     - `lessons.py` - Core concepts and examples
     - `problems.py` - 8 practice problems
+  - `phase10/` - Pythonic Idioms & Capstone ✓
+    - `lessons.py` - Core concepts and examples
+    - `problems.py` - 6 problems + capstone
+  - `phase11/` - Async Python & HTTP ✓
+    - `lessons.py` - Core concepts and examples
+    - `problems.py` - 7 problems
 - `java/` - Java solutions (HackerRank)
 
 ## Languages
@@ -89,8 +95,8 @@ The user is learning Python coming from a JS/TS background. A phased curriculum 
 - [x] Phase 7: Modules & Packaging (`python/phase7/`) - 12 problems
 - [x] Phase 8: Testing (pytest advanced) (`python/phase8/`) - 10 problems
 - [x] Phase 9: Type System Deep Dive (`python/phase9/`) - 8 problems
-- [ ] Phase 10: Pythonic Idioms & Capstone ← CURRENT
-- [ ] Phase 11: Async Python & HTTP (`asyncio`, `httpx`, JS/TS comparison)
+- [x] Phase 10: Pythonic Idioms & Capstone (`python/phase10/`) - 6 problems + capstone
+- [x] Phase 11: Async Python & HTTP (`python/phase11/`) - 7 problems
 
 ### How to Resume
 
